@@ -16,12 +16,9 @@
     :root {
       --bg-body: #0f172a;
       --card-bg: #1e293b;
-      --card-inner: #0f172a;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --primary: #6366f1;
       --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-      --accent-orange: #f97316;
       --border: #334155;
       --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
     }
@@ -37,7 +34,7 @@
 
     .hidden { display: none !important; }
 
-    /* TRACKER WIDGET POJOK ATAS */
+    /* WIDGET TRACKER POJOK ATAS */
     .widget-tracker {
       background: #18181b;
       border: 1px solid #27272a;
@@ -215,45 +212,61 @@
       border-color: #10b981;
     }
 
-    /* ADAPTIVE BINGUNG BUTTON */
-    .confused-box {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 20px;
-      text-align: center;
+    /* 5 LEVEL PILIHAN GAYA BELAJAR AI (GRADASI WARNA) */
+    .level-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
     }
 
-    .level-badge {
-      display: inline-block;
-      background: #312e81;
-      color: #c7d2fe;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 20px;
-      margin-bottom: 8px;
-    }
-
-    .btn-confused {
+    .btn-level {
       width: 100%;
-      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+      border-radius: 14px;
+      padding: 14px 16px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
+      justify-content: space-between;
+      text-decoration: none;
+      color: white;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.1s ease;
+      border: none;
     }
 
-    .btn-confused:active { transform: scale(0.98); }
+    .btn-level:active { transform: scale(0.98); }
+
+    .level-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    .level-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.85;
+    }
+
+    .level-title {
+      font-size: 0.98rem;
+    }
+
+    .level-desc {
+      font-size: 0.75rem;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+
+    /* GRADASI WARNA 5 LEVEL */
+    .lvl-1 { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); } /* Level 1: Biru (Guru Sekolah) */
+    .lvl-2 { background: linear-gradient(135deg, #10b981 0%, #047857 100%); } /* Level 2: Hijau (Guru Les) */
+    .lvl-3 { background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); } /* Level 3: Kuning (Teman Pintar) */
+    .lvl-4 { background: linear-gradient(135deg, #f97316 0%, #c2410c 100%); } /* Level 4: Oranye (Anak SMP) */
+    .lvl-5 { background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); } /* Level 5: Pink (Anak SD) */
 
     .ai-btn-list {
       display: flex;
@@ -282,7 +295,7 @@
   <div class="widget-tracker">
     <div class="tracker-header">Hari ini</div>
     <div class="tracker-row">
-      <span>Belajar : <span id="time-counter">15</span> menit</span>
+      <span>Belajar : <span id="time-counter">12</span> menit</span>
     </div>
     <div class="tracker-row">
       <span>Progress :</span>
@@ -301,7 +314,7 @@
   <!-- POST CARD HEADER -->
   <div class="app-header-card">
     <div class="brand-title">✨ JELITA LEARNING</div>
-    <div class="brand-subtitle">Kurikulum Merdeka • Kelas X (Fase E)</div>
+    <div class="brand-subtitle">Belajar Tanpa Friksi • SMA Kelas X</div>
   </div>
 
   <!-- HALAMAN 1: PILIH MAPEL -->
@@ -341,28 +354,73 @@
     <div class="list-bab" id="container-bab"></div>
   </div>
 
-  <!-- HALAMAN 3: AI HUB + SAYA MASIH BINGUNG -->
+  <!-- HALAMAN 3: AI HUB (5 LEVEL GAYA BELAJAR) -->
   <div id="page-hub" class="hidden">
     <div class="nav-bar">
       <button class="btn-back" onclick="showPage('page-bab')">← Pilih Bab</button>
       <span id="bab-title-header" style="font-size: 0.8rem; color: var(--text-muted); text-align: right;"></span>
     </div>
 
-    <!-- TOMBOL SAYA MASIH BINGUNG -->
-    <div class="confused-box">
-      <div class="level-badge" id="level-indicator">LEVEL 1: Standard SMA</div>
-      <button class="btn-confused" onclick="handleConfusedClick()">
-        <span>🧠 Saya Masih Bingung</span>
-      </button>
-      <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">
-        Tekan tombol ini jika belum paham. AI akan otomatis menurunkan tingkat kesulitan penjelasan!
-      </p>
+    <!-- 5 TOMBOL LEVEL GAYA PENJELASAN AI -->
+    <div class="section-title">🧠 Pilih Gaya Penjelasan AI</div>
+    <div class="level-container">
+      
+      <!-- LEVEL 1 -->
+      <a id="btn-lvl-1" class="btn-level lvl-1" target="_blank" href="#">
+        <div class="level-left">
+          <span class="level-tag">Level 1</span>
+          <span class="level-title">👨‍🏫 Guru Sekolah</span>
+          <span class="level-desc">Penjelasan akademis & terstruktur sesuai kurikulum</span>
+        </div>
+        <span>➔</span>
+      </a>
+
+      <!-- LEVEL 2 -->
+      <a id="btn-lvl-2" class="btn-level lvl-2" target="_blank" href="#">
+        <div class="level-left">
+          <span class="level-tag">Level 2</span>
+          <span class="level-title">👩‍🏫 Guru Les</span>
+          <span class="level-desc">Lebih santai, fokus trik cepat & poin penting</span>
+        </div>
+        <span>➔</span>
+      </a>
+
+      <!-- LEVEL 3 -->
+      <a id="btn-lvl-3" class="btn-level lvl-3" target="_blank" href="#">
+        <div class="level-left">
+          <span class="level-tag">Level 3</span>
+          <span class="level-title">🧑‍🤝‍🧑 Teman Pintar</span>
+        </div>
+        <div class="level-desc">Bahasa gaul/sehari-hari, santai seperti diskusi teman</div>
+        <span>➔</span>
+      </a>
+
+      <!-- LEVEL 4 -->
+      <a id="btn-lvl-4" class="btn-level lvl-4" target="_blank" href="#">
+        <div class="level-left">
+          <span class="level-tag">Level 4</span>
+          <span class="level-title">🎒 Anak SMP</span>
+        </div>
+        <div class="level-desc">Sangat sederhana, tanpa rumus yang menakutkan</div>
+        <span>➔</span>
+      </a>
+
+      <!-- LEVEL 5 -->
+      <a id="btn-lvl-5" class="btn-level lvl-5" target="_blank" href="#">
+        <div class="level-left">
+          <span class="level-tag">Level 5</span>
+          <span class="level-title">🎈 Seperti Anak SD</span>
+        </div>
+        <div class="level-desc">Gunakan analogi cerita / contoh benda nyata</div>
+        <span>➔</span>
+      </a>
+
     </div>
 
-    <div class="section-title">Aksi Pembelajaran AI</div>
+    <div class="section-title">📝 Aksi Pembelajaran AI</div>
     <div class="ai-btn-list">
       <a id="btn-ai-latihan" class="ai-btn" style="border-color: #6366f1; background: #312e81;" target="_blank" href="#">
-        <span>📝 Buatkan 5 Soal & Pembahasan</span>
+        <span>🔥 Buatkan 5 Soal & Pembahasan</span>
         <span>➔</span>
       </a>
       <a id="btn-ai-contoh" class="ai-btn" target="_blank" href="#">
@@ -372,15 +430,14 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT LOGIC & DATA KURIKULUM MERDEKA -->
+  <!-- JAVASCRIPT LOGIC -->
   <script>
-    // DATA PERTAMA & PEMETAAN KURIKULUM MERDEKA FASE E (KELAS X)
     const dataKurikulum = {
       'Matematika': [
         { title: 'Eksponen dan Logaritma', sub: 'Sifat eksponen, fungsi eksponensial, pertumbuhan/peluruhan, sifat logaritma' },
         { title: 'Barisan dan Deret', sub: 'Barisan & deret aritmetika, geometri, dan geometri tak hingga' },
         { title: 'Vektor dan Operasinya', sub: 'Konsep vektor, notasi, representasi geometris/analitis, dot product' },
-        { title: 'Trigonometri', sub: 'Perbandingan trigonometri segitiga siku-siku, sudut istimewa, pengukurn jarak' },
+        { title: 'Trigonometri', sub: 'Perbandingan trigonometri segitiga siku-siku, sudut istimewa, pengukuran jarak' },
         { title: 'Sistem Persamaan & Pertidaksamaan Linear', sub: 'SPLTV (Tiga Variabel) dan SPtLDV (Dua Variabel)' },
         { title: 'Fungsi Kuadrat', sub: 'Grafik fungsi kuadrat, titik balik, diskriminan, aplikasi masalah nyata' },
         { title: 'Analisis Data dan Peluang', sub: 'Penyajian data (boxplot/dotplot), mean/median/modus, peluang kejadian bebas' }
@@ -412,30 +469,9 @@
       ]
     };
 
-    // LEVEL PENJELASAN
-    const confusedLevels = [
-      {
-        level: "LEVEL 1: Standar SMA (Kurikulum Merdeka)",
-        prompt: (mapel, bab, sub) => `Saya siswa SMA Kelas X (Fase E). Jelaskan materi ${mapel} bab "${bab}" (fokus cakupan: ${sub}) secara terstruktur sesuai Capaian Pembelajaran Kurikulum Merdeka.`
-      },
-      {
-        level: "LEVEL 2: Gaya Guru Les (Praktis & Santai)",
-        prompt: (mapel, bab, sub) => `Saya masih bingung materi ${mapel} bab "${bab}" (${sub}). Coba jelaskan dengan gaya guru les privat yang ramah, langsung ke poin penting, dan berikan trik cepat untuk memahaminya.`
-      },
-      {
-        level: "LEVEL 3: Level Anak SMP (Sangat Sederhana)",
-        prompt: (mapel, bab, sub) => `Saya masih belum paham materi ${mapel} "${bab}". Tolong turunkan tingkat kesulitannya dan jelaskan seolah-olah saya murid SMP. Hindari istilah akademis rumit.`
-      },
-      {
-        level: "LEVEL 4: Analogi Kehidupan Sehari-hari",
-        prompt: (mapel, bab, sub) => `Saya kesulitan memahami konsep ${mapel} "${bab}". Tolong jelaskan materi ini HANYA dengan menggunakan analogi kehidupan sehari-hari (seperti makanan, olahraga, atau kejadian nyata di rumah).`
-      }
-    ];
-
     let currentMapel = '';
     let currentBab = '';
     let currentSub = '';
-    let currentLevelIndex = 0;
 
     function showPage(pageId) {
       document.getElementById('page-mapel').classList.add('hidden');
@@ -492,34 +528,21 @@
     function selectBab(babTitle, babSub) {
       currentBab = babTitle;
       currentSub = babSub;
-      currentLevelIndex = 0;
 
       document.getElementById('bab-title-header').innerText = `${currentMapel} • ${currentBab}`;
-      
-      updateConfusedUI();
 
-      setAILink('btn-ai-latihan', `Saya sedang belajar ${currentMapel} Kelas X bab "${currentBab}" (Cakupan: ${currentSub}). Buatkan 5 soal latihan bergradasi. Tampilkan soalnya saja dahulu, lalu tunggu jawaban saya sebelum memberikan pembahasan lengkap satu per satu.`);
-      setAILink('btn-ai-contoh', `Beri saya 2 contoh penerapan atau soal beserta langkah penyelesaian mendalam untuk materi ${currentMapel} bab "${currentBab}" (${currentSub}).`);
+      // SET PROMPT SPESIFIK UNTUK MASING-MASING LEVEL
+      setAILink('btn-lvl-1', `Saya siswa SMA Kelas X (Fase E). Jelaskan materi ${currentMapel} bab "${currentBab}" (Cakupan: ${currentSub}) dengan gaya Guru Sekolah yang resmi, terstruktur, dan sesuai kurikulum nasional.`);
+      setAILink('btn-lvl-2', `Saya sedang mempelajari ${currentMapel} bab "${currentBab}" (${currentSub}). Jelaskan dengan gaya Guru Les privat: santai, langsung ke konsep kunci, dan berikan trik praktis untuk mengingatnya.`);
+      setAILink('btn-lvl-3', `Bro/Sist, tolong jelaskan materi ${currentMapel} bab "${currentBab}" (${currentSub}) dengan gaya Teman Pintar yang lagi ngajarin di kafe. Gunakan bahasa sehari-hari yang santai tapi jelas.`);
+      setAILink('btn-lvl-4', `Jelaskan materi ${currentMapel} bab "${currentBab}" (${currentSub}) seolah-olah saya adalah Anak SMP. Turunkan tingkat kesulitannya, gunakan istilah yang sangat sederhana dan tanpa rumus rumit.`);
+      setAILink('btn-lvl-5', `Jelaskan konsep utama ${currentMapel} bab "${currentBab}" (${currentSub}) seolah-olah menjelaskan ke Anak SD. Gunakan analogi cerita, dongeng, atau contoh dari benda nyata sehari-hari.`);
+
+      // SET LINK SOAL & CONTOH KASUS
+      setAILink('btn-ai-latihan', `Saya belajar ${currentMapel} Kelas X bab "${currentBab}" (${currentSub}). Buatkan 5 soal latihan. Tampilkan soalnya saja dulu, dan tunggu jawaban saya sebelum memberikan pembahasan lengkap satu per satu.`);
+      setAILink('btn-ai-contoh', `Beri saya 2 contoh penerapan atau soal beserta penyelesaian mendalam untuk materi ${currentMapel} bab "${currentBab}" (${currentSub}).`);
 
       showPage('page-hub');
-    }
-
-    function handleConfusedClick() {
-      const activeLevel = confusedLevels[currentLevelIndex];
-      const promptText = activeLevel.prompt(currentMapel, currentBab, currentSub);
-      
-      const encoded = encodeURIComponent(promptText);
-      window.open(`https://chatgpt.com/?q=${encoded}`, '_blank');
-
-      if (currentLevelIndex < confusedLevels.length - 1) {
-        currentLevelIndex++;
-        updateConfusedUI();
-      }
-    }
-
-    function updateConfusedUI() {
-      const activeLevel = confusedLevels[currentLevelIndex];
-      document.getElementById('level-indicator').innerText = activeLevel.level;
     }
 
     function setAILink(elementId, promptText) {
