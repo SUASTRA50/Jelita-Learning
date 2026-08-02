@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplikasi Belajar Tanpa Friksi</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    :root {
+      --bg-color: #f4f6f9;
+      --card-bg: #ffffff;
+      --text-main: #1f2937;
+      --text-muted: #6b7280;
+      --primary-blue: #3b82f6;
+      --ai-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      --border-color: #e5e7eb;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0 20px 0;
+    }
+
+    .btn-back {
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: var(--primary-blue);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    h1 {
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Grid Mapel (Home) */
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .subject-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 24px 16px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .subject-card:active {
+      transform: scale(0.96);
+    }
+
+    .subject-icon {
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .subject-title {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    /* Dashboard Pelajaran */
+    .dashboard-header {
+      background: var(--primary-blue);
+      color: white;
+      padding: 20px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .dashboard-header .icon {
+      font-size: 2.2rem;
+    }
+
+    .dashboard-header h2 {
+      font-size: 1.3rem;
+    }
+
+    /* Kotak Input Topik Spesifik */
+    .topic-box {
+      background: white;
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow);
+    }
+
+    .topic-box label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .topic-box input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .topic-box input:focus {
+      border-color: var(--primary-blue);
+    }
+
+    /* Hub Menu List */
+    .hub-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .hub-item {
+      background: var(--card-bg);
+      padding: 16px 20px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .hub-item:active {
+      background-color: #f3f4f6;
+    }
+
+    /* Tombol Spesial Tanya AI (Gradient Ungu/Indigo) */
+    .hub-item.ai-tutor {
+      background: var(--ai-gradient);
+      color: white;
+      border: none;
+      font-weight: 600;
+    }
+
+    .hub-item.ai-tutor .hub-arrow {
+      color: white;
+    }
+
+    .hub-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hub-icon {
+      font-size: 1.4rem;
+      width: 28px;
+      text-align: center;
+    }
+
+    .hub-title {
+      font-weight: 600;
+      font-size: 0.98rem;
+    }
+
+    .hub-arrow {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <button id="back-btn" class="btn-back hidden" onclick="goHome()">&#8592; Beranda</button>
+    <h1 id="page-title">Pilih Pelajaran</h1>
+    <div></div>
+  </header>
+
+  <!-- SCREEN 1: Home (Pilihan Mapel) -->
+  <main id="home-screen" class="subject-grid">
+    <div class="subject-card" onclick="openSubject('Bahasa Indonesia', '📚', 'Teks Negosiasi / Puisi')">
+      <span class="subject-icon">📚</span>
+      <span class="subject-title">Bahasa Indonesia</span>
+    </div>
+    <div class="subject-card" onclick="openSubject('Matematika', '🧮', 'Persamaan Kuadrat')">
+      <span class="subject-icon">🧮</span>
+      <span class="subject-title">Matematika</span>
+    </div>
+    <div class="subject-card" onclick="openSubject('Fisika', '🔬', 'Hukum Newton')">
+      <span class="subject-icon">🔬</span>
+      <span class="subject-title">Fisika</span>
+    </div>
+    <div class="subject-card" onclick="openSubject('Kimia', '🧪', 'Tabel Periodik & Ikatan Kimia')">
+      <span class="subject-icon">🧪</span>
+      <span class="subject-title">Kimia</span>
+    </div>
+    <div class="subject-card" onclick="openSubject('Geografi', '🌏', 'Dinamika Atmosfer')">
+      <span class="subject-icon">🌏</span>
+      <span class="subject-title">Geografi</span>
+    </div>
+    <div class="subject-card" onclick="openSubject('Bahasa Inggris', '🇬🇧', 'Analytical Exposition Text')">
+      <span class="subject-icon">🇬🇧</span>
+      <span class="subject-title">Bahasa Inggris</span>
+    </div>
+    <div class="subject-card" onclick="openSubject('Informatika', '💻', 'Berpikir Komputasional')">
+      <span class="subject-icon">💻</span>
+      <span class="subject-title">Informatika</span>
+    </div>
+  </main>
+
+  <!-- SCREEN 2: Dashboard Pelajaran -->
+  <main id="dashboard-screen" class="hidden">
+    <div class="dashboard-header">
+      <span id="dash-icon" class="icon">🧮</span>
+      <div>
+        <h2 id="dash-title">Matematika</h2>
+        <p style="font-size: 0.85rem; opacity: 0.9;">Pusat Pembelajaran Digital</p>
+      </div>
+    </div>
+
+    <!-- Input Topik Spesifik (Bisa diubah siswa secara real-time) -->
+    <div class="topic-box">
+      <label for="topic-input">Topik yang sedang dipelajari:</label>
+      <input type="text" id="topic-input" value="Persamaan Kuadrat" oninput="updateAILinks()">
+    </div>
+
+    <div class="hub-grid">
+      <!-- Tombol Tanya AI (Menggunakan tag <a> dengan Link Intent) -->
+      <a id="ai-link" href="#" target="_blank" class="hub-item ai-tutor">
+        <div class="hub-left">
+          <span class="hub-icon">🧠</span>
+          <span class="hub-title">Tanya AI (ChatGPT / Gemini)</span>
+        </div>
+        <span class="hub-arrow">&#10095;</span>
+      </a>
+
+      <div class="hub-item" onclick="alert('Fitur Ringkasan 1 Halaman')">
+        <div class="hub-left">
+          <span class="hub-icon">📝</span>
+          <span class="hub-title">Ringkasan 1 Halaman</span>
+        </div>
+        <span class="hub-arrow">&#10095;</span>
+      </div>
+
+      <div class="hub-item" onclick="alert('Fitur Latihan Quiz')">
+        <div class="hub-left">
+          <span class="hub-icon">❓</span>
+          <span class="hub-title">Latihan Quiz</span>
+        </div>
+        <span class="hub-arrow">&#10095;</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- JavaScript Logic -->
+  <script>
+    let currentSubjectName = '';
+
+    function openSubject(name, icon, defaultTopic) {
+      currentSubjectName = name;
+      
+      document.getElementById('home-screen').classList.add('hidden');
+      document.getElementById('dashboard-screen').classList.remove('hidden');
+      document.getElementById('back-btn').classList.remove('hidden');
+
+      document.getElementById('page-title').innerText = name;
+      document.getElementById('dash-title').innerText = name;
+      document.getElementById('dash-icon').innerText = icon;
+      document.getElementById('topic-input').value = defaultTopic;
+
+      updateAILinks();
+      window.scrollTo(0, 0);
+    }
+
+    function goHome() {
+      document.getElementById('dashboard-screen').classList.add('hidden');
+      document.getElementById('home-screen').classList.remove('hidden');
+      document.getElementById('back-btn').classList.add('hidden');
+      document.getElementById('page-title').innerText = 'Pilih Pelajaran';
+      window.scrollTo(0, 0);
+    }
+
+    function updateAILinks() {
+      const topic = document.getElementById('topic-input').value;
+      
+      // Rancang Prompt Sesuai Keinginan Anda
+      const promptText = `Saya siswa SMA di Indonesia. Jelaskan materi ${currentSubjectName} tentang "${topic}" dengan bahasa yang sangat sederhana, berikan contoh nyata, lalu berikan 5 soal latihan beserta pembahasannya.`;
+      
+      // Encode prompt agar aman dibaca URL browser
+      const encodedPrompt = encodeURIComponent(promptText);
+
+      // Menggunakan ChatGPT Web URL dengan pre-filled prompt
+      const aiUrl = `https://chatgpt.com/?q=${encodedPrompt}`;
+
+      // Set link pada tombol Tanya AI
+      document.getElementById('ai-link').href = aiUrl;
+    }
+  </script>
+</body>
+</html>
