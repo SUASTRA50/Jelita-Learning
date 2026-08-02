@@ -89,7 +89,7 @@
       border-top: 1px dashed #cbd5e1;
     }
 
-    /* HEADER UTAMA - SEJUK INDIGO PASTEL */
+    /* HEADER UTAMA LOGO BUKU TERBUKA & ORANG BELAJAR */
     .app-header-card {
       background: #e0e7ff;
       border: 1px solid #c7d2fe;
@@ -159,7 +159,7 @@
       margin-bottom: 14px;
     }
 
-    /* GRID MAPEL - PALETTE WARNA SEJUK BERBEDA-BEDA */
+    /* GRID MAPEL - PALETTE WARNA SEJUK */
     .grid-mapel {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -180,13 +180,13 @@
     .card-mapel .title { font-size: 0.95rem; font-weight: 700; }
 
     /* Tema Warna Sejuk per Mapel */
-    .mapel-mtk { background: #dbeafe; border: 1px solid #bfdbfe; color: #1e40af; } /* Soft Blue */
-    .mapel-fis { background: #e0f2fe; border: 1px solid #bae6fd; color: #0369a1; } /* Ice Sky */
-    .mapel-kim { background: #d1fae5; border: 1px solid #a7f3d0; color: #065f46; } /* Soft Mint */
-    .mapel-ing { background: #fef3c7; border: 1px solid #fde68a; color: #92400e; } /* Warm Sand */
-    .mapel-ind { background: #f3e8ff; border: 1px solid #e9d5ff; color: #6b21a8; } /* Soft Lavender */
+    .mapel-mtk { background: #dbeafe; border: 1px solid #bfdbfe; color: #1e40af; }
+    .mapel-fis { background: #e0f2fe; border: 1px solid #bae6fd; color: #0369a1; }
+    .mapel-kim { background: #d1fae5; border: 1px solid #a7f3d0; color: #065f46; }
+    .mapel-ing { background: #fef3c7; border: 1px solid #fde68a; color: #92400e; }
+    .mapel-ind { background: #f3e8ff; border: 1px solid #e9d5ff; color: #6b21a8; }
 
-    /* LIST BAB - CARD WARNA SOFT GREY-BLUE */
+    /* LIST BAB */
     .list-bab { display: flex; flex-direction: column; gap: 10px; }
     
     .card-bab {
@@ -228,7 +228,7 @@
       border-color: #10b981;
     }
 
-    /* 5 LEVEL GAYA BELAJAR AI - PALETTE WARNA TERANG ELEGAN SEJUK */
+    /* 5 LEVEL GAYA BELAJAR AI */
     .level-container {
       display: flex;
       flex-direction: column;
@@ -269,11 +269,11 @@
     .level-desc { font-size: 0.75rem; font-weight: 400; opacity: 0.9; }
 
     /* PALETTE 5 LEVEL GAYA BELAJAR */
-    .lvl-1 { background: #dbeafe; border: 1px solid #bfdbfe; color: #1e40af; } /* Level 1: Soft Royal Blue */
-    .lvl-2 { background: #d1fae5; border: 1px solid #a7f3d0; color: #065f46; } /* Level 2: Soft Emerald Mint */
-    .lvl-3 { background: #fef3c7; border: 1px solid #fde68a; color: #92400e; } /* Level 3: Soft Sage Amber */
-    .lvl-4 { background: #ffedd5; border: 1px solid #fed7aa; color: #9a3412; } /* Level 4: Soft Warm Coral */
-    .lvl-5 { background: #fce7f3; border: 1px solid #fbcfe8; color: #9d174d; } /* Level 5: Soft Rose Pink */
+    .lvl-1 { background: #dbeafe; border: 1px solid #bfdbfe; color: #1e40af; }
+    .lvl-2 { background: #d1fae5; border: 1px solid #a7f3d0; color: #065f46; }
+    .lvl-3 { background: #fef3c7; border: 1px solid #fde68a; color: #92400e; }
+    .lvl-4 { background: #ffedd5; border: 1px solid #fed7aa; color: #9a3412; }
+    .lvl-5 { background: #fce7f3; border: 1px solid #fbcfe8; color: #9d174d; }
 
     .ai-btn-list { display: flex; flex-direction: column; gap: 10px; }
 
@@ -304,8 +304,10 @@
     </div>
     <div class="tracker-row">
       <span>Progress Kurikulum</span>
-      <div class="progress-bar-bg">
-        <div class="progress-fill" id="progress-fill"></div>
+      <div class="progress-container">
+        <div class="progress-bar-bg">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
       </div>
     </div>
     <div class="streak-badge">
@@ -313,7 +315,7 @@
     </div>
   </div>
 
-  <!-- HEADER UTAMA LOGO BUKU TERBUKA -->
+  <!-- HEADER UTAMA -->
   <div class="app-header-card">
     <div class="brand-icon">
       <svg viewBox="0 0 24 24">
@@ -370,7 +372,6 @@
       <span id="bab-title-header" style="font-size: 0.8rem; color: var(--text-muted); text-align: right;"></span>
     </div>
 
-    <!-- 5 TOMBOL LEVEL GAYA PENJELASAN AI -->
     <div class="section-title">🧠 Pilih Gaya Penjelasan AI</div>
     <div class="level-container">
       <a id="btn-lvl-1" class="btn-level lvl-1" target="_blank" href="#">
@@ -432,7 +433,6 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT ENGINE -->
   <script>
     const dataKurikulum = {
       'Matematika': [
@@ -445,14 +445,44 @@
         { title: 'Analisis Data dan Peluang', sub: 'Penyajian data (boxplot/dotplot), mean/median/modus, peluang kejadian bebas' }
       ],
       'Fisika': [
-        { title: 'Pengukuran dalam Kerja Ilmiah', sub: 'Besaran, satuan, jangka sorong, mikrometer sekrup, angka penting, ketidakpastian' },
-        { title: 'Energi Terbarukan', sub: 'Bentuk energi, Hukum Kekekalan Energi, sumber terbarukan vs tak terbarukan, efisiensi' },
-        { title: 'Pemanasan Global (Global Warming)', sub: 'Efek rumah kaca, dampak ekosistem, solusi teknologi & mitigasi emisi karbon' }
+        { 
+          title: 'Sistem Pengukuran dalam Kerja Ilmiah', 
+          sub: 'Hakikat Fisika, Metode Ilmiah, Keselamatan di Laboratorium, Pengukuran, Besaran, Satuan, Dimensi, Angka Penting & Notasi Ilmiah' 
+        },
+        { 
+          title: 'Vektor', 
+          sub: 'Konsep Vektor, Penguraian Vektor, Operasi Vektor' 
+        },
+        { 
+          title: 'Kinematika Gerak', 
+          sub: 'Besaran-Besaran Gerak, Gerak Satu Dimensi, Gerak Dua Dimensi' 
+        },
+        { 
+          title: 'Energi Alternatif', 
+          sub: 'Perpindahan & Perubahan Bentuk Energi, Ragam Sumber Energi Tidak Terbarukan, Ragam Sumber Energi Alternatif' 
+        },
+        { 
+          title: 'Perubahan Iklim', 
+          sub: 'Gejala Perubahan Iklim, Penyebab Perubahan Iklim, Dampak Perubahan Iklim, Solusi Mengatasi Perubahan Iklim' 
+        }
       ],
       'Kimia': [
-        { title: 'Kimia Hijau (Green Chemistry)', sub: '12 prinsip kimia hijau, pembangunan berkelanjutan, solusi masalah lingkungan' },
-        { title: 'Struktur Atom & Tabel Periodik Unsur', sub: 'Teori atom, proton/neutron/elektron, konfigurasi elektron, sifat periodik' },
-        { title: 'Hukum Dasar Kimia & Stoikiometri', sub: 'Hukum Lavoisier, Proust, Dalton, Gay-Lussac, Avogadro, Konsep Mol, penyetaraan reaksi' }
+        { 
+          title: 'Kimia dalam Kehidupan', 
+          sub: 'Ilmu Kimia & Peranannya, Materi & Klasifikasinya, Metode Ilmiah, Bekerja di Laboratorium Kimia, Kimia Hijau sebagai Upaya Pengelolaan Lingkungan' 
+        },
+        { 
+          title: 'Struktur Atom', 
+          sub: 'Teori Awal tentang Atom, Penemuan Partikel Subatom, Notasi Atom, Sistem Periodik Unsur' 
+        },
+        { 
+          title: 'Reaksi Kimia dan Stoikiometri', 
+          sub: 'Persamaan & Reaksi Kimia, Hukum Dasar Kimia, Massa Atom, Mol, Kadar Zat, Perhitungan dalam Reaksi Kimia' 
+        },
+        { 
+          title: 'Perubahan Iklim', 
+          sub: 'Pengertian & Gejala Perubahan Iklim, Penyebab Perubahan Iklim, Dampak Perubahan Iklim, Upaya Mitigasi & Adaptasi Perubahan Iklim' 
+        }
       ],
       'Bahasa Inggris': [
         { title: 'Descriptive Text (Great Athletes / Healthy Foods)', sub: 'Mendeskripsikan orang/tempat/benda, adjectives, simple present, sensory words' },
