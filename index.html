@@ -3,333 +3,389 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aplikasi Belajar Tanpa Friksi</title>
+  <title>JELITA LEARNING</title>
   <style>
+    /* RESET & VARS */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     :root {
-      --bg-color: #f4f6f9;
+      --bg-body: #f8fafc;
       --card-bg: #ffffff;
-      --text-main: #1f2937;
-      --text-muted: #6b7280;
-      --primary-blue: #3b82f6;
-      --ai-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-      --border-color: #e5e7eb;
-      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      --text-dark: #0f172a;
+      --text-muted: #64748b;
+      --primary: #4f46e5;
+      --primary-light: #e0e7ff;
+      --border: #f1f5f9;
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.06);
     }
 
     body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      padding: 16px;
-      max-width: 600px;
+      background-color: var(--bg-body);
+      color: var(--text-dark);
+      max-width: 480px; /* Lebar Ideal Smartphone */
       margin: 0 auto;
+      padding: 16px;
+      padding-bottom: 40px;
     }
 
-    header {
+    .hidden { display: none !important; }
+
+    /* CARD HEADER / POST CARD TOP */
+    .app-header-card {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      color: white;
+      border-radius: 20px;
+      padding: 24px 20px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-header-card::after {
+      content: "";
+      position: absolute;
+      top: -30%;
+      right: -20%;
+      width: 140px;
+      height: 140px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .brand-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-subtitle {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      margin-top: 4px;
+      font-weight: 400;
+    }
+
+    /* TOP BAR NAVIGATION */
+    .nav-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 0 20px 0;
+      margin-bottom: 16px;
     }
 
     .btn-back {
-      background: none;
-      border: none;
-      font-size: 1.1rem;
-      cursor: pointer;
-      color: var(--primary-blue);
+      background: var(--card-bg);
+      border: 1px solid #e2e8f0;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.85rem;
       font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 4px;
+      color: var(--primary);
+      cursor: pointer;
     }
 
-    h1 {
-      font-size: 1.3rem;
+    .section-title {
+      font-size: 1.1rem;
       font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
     }
 
-    .hidden {
-      display: none !important;
-    }
-
-    /* Grid Mapel (Home) */
-    .subject-grid {
+    /* FITUR 1: MAPEL GRID */
+    .grid-mapel {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+      gap: 12px;
     }
 
-    .subject-card {
+    .card-mapel {
       background: var(--card-bg);
       border-radius: 16px;
-      padding: 24px 16px;
+      padding: 18px 14px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
       text-align: center;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border-color);
       cursor: pointer;
-      transition: transform 0.15s ease;
+      transition: transform 0.1s ease;
     }
 
-    .subject-card:active {
-      transform: scale(0.96);
-    }
+    .card-mapel:active { transform: scale(0.97); }
+    .card-mapel .icon { font-size: 2rem; margin-bottom: 6px; display: block; }
+    .card-mapel .title { font-size: 0.95rem; font-weight: 600; }
 
-    .subject-icon {
-      font-size: 2.5rem;
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .subject-title {
-      font-weight: 600;
-      font-size: 1rem;
-    }
-
-    /* Dashboard Pelajaran */
-    .dashboard-header {
-      background: var(--primary-blue);
-      color: white;
-      padding: 20px;
-      border-radius: 16px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .dashboard-header .icon {
-      font-size: 2.2rem;
-    }
-
-    .dashboard-header h2 {
-      font-size: 1.3rem;
-    }
-
-    /* Kotak Input Topik Spesifik */
-    .topic-box {
-      background: white;
-      padding: 14px 16px;
-      border-radius: 12px;
-      margin-bottom: 16px;
-      border: 1px solid var(--border-color);
-      box-shadow: var(--shadow);
-    }
-
-    .topic-box label {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      font-weight: 600;
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .topic-box input {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      font-size: 0.95rem;
-      outline: none;
-    }
-
-    .topic-box input:focus {
-      border-color: var(--primary-blue);
-    }
-
-    /* Hub Menu List */
-    .hub-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .hub-item {
+    /* FITUR 2: DAFTAR BAB */
+    .list-bab { display: flex; flex-direction: column; gap: 10px; }
+    
+    .card-bab {
       background: var(--card-bg);
-      padding: 16px 20px;
-      border-radius: 12px;
+      border-radius: 14px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border: 1px solid var(--border-color);
-      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+
+    .bab-info { display: flex; align-items: center; gap: 12px; }
+    .check-box {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: white;
+      cursor: pointer;
+    }
+    
+    /* FITUR 5: PROGRESS CENTANG */
+    .check-box.done {
+      background: #10b981;
+      border-color: #10b981;
+    }
+
+    /* HUB MATERI (TANYA AI, LATIHAN, DLL) */
+    .hub-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+    
+    .hub-item {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       cursor: pointer;
       text-decoration: none;
       color: inherit;
     }
 
-    .hub-item:active {
-      background-color: #f3f4f6;
+    .hub-item.ai-card {
+      background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
+      border: 1px solid #c7d2fe;
     }
 
-    /* Tombol Spesial Tanya AI (Gradient Ungu/Indigo) */
-    .hub-item.ai-tutor {
-      background: var(--ai-gradient);
-      color: white;
-      border: none;
+    /* FITUR 3 & 4: TOMBOL PROMPT AI */
+    .ai-actions {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ai-btn {
+      background: var(--card-bg);
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 0.88rem;
       font-weight: 600;
-    }
-
-    .hub-item.ai-tutor .hub-arrow {
-      color: white;
-    }
-
-    .hub-left {
+      color: var(--primary);
       display: flex;
       align-items: center;
-      gap: 14px;
+      justify-content: space-between;
+      text-decoration: none;
+      box-shadow: var(--shadow-sm);
     }
 
-    .hub-icon {
-      font-size: 1.4rem;
-      width: 28px;
-      text-align: center;
-    }
-
-    .hub-title {
-      font-weight: 600;
-      font-size: 0.98rem;
-    }
-
-    .hub-arrow {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
+    .ai-btn:active { background: #f1f5f9; }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <button id="back-btn" class="btn-back hidden" onclick="goHome()">&#8592; Beranda</button>
-    <h1 id="page-title">Pilih Pelajaran</h1>
-    <div></div>
-  </header>
+  <!-- HEADER / POST CARD UTAMA -->
+  <div class="app-header-card">
+    <div class="brand-title">✨ JELITA LEARNING</div>
+    <div class="brand-subtitle">Belajar Tanpa Friksi • Khusus SMA Kelas X</div>
+  </div>
 
-  <!-- SCREEN 1: Home (Pilihan Mapel) -->
-  <main id="home-screen" class="subject-grid">
-    <div class="subject-card" onclick="openSubject('Bahasa Indonesia', '📚', 'Teks Negosiasi / Puisi')">
-      <span class="subject-icon">📚</span>
-      <span class="subject-title">Bahasa Indonesia</span>
-    </div>
-    <div class="subject-card" onclick="openSubject('Matematika', '🧮', 'Persamaan Kuadrat')">
-      <span class="subject-icon">🧮</span>
-      <span class="subject-title">Matematika</span>
-    </div>
-    <div class="subject-card" onclick="openSubject('Fisika', '🔬', 'Hukum Newton')">
-      <span class="subject-icon">🔬</span>
-      <span class="subject-title">Fisika</span>
-    </div>
-    <div class="subject-card" onclick="openSubject('Kimia', '🧪', 'Tabel Periodik & Ikatan Kimia')">
-      <span class="subject-icon">🧪</span>
-      <span class="subject-title">Kimia</span>
-    </div>
-    <div class="subject-card" onclick="openSubject('Geografi', '🌏', 'Dinamika Atmosfer')">
-      <span class="subject-icon">🌏</span>
-      <span class="subject-title">Geografi</span>
-    </div>
-    <div class="subject-card" onclick="openSubject('Bahasa Inggris', '🇬🇧', 'Analytical Exposition Text')">
-      <span class="subject-icon">🇬🇧</span>
-      <span class="subject-title">Bahasa Inggris</span>
-    </div>
-    <div class="subject-card" onclick="openSubject('Informatika', '💻', 'Berpikir Komputasional')">
-      <span class="subject-icon">💻</span>
-      <span class="subject-title">Informatika</span>
-    </div>
-  </main>
-
-  <!-- SCREEN 2: Dashboard Pelajaran -->
-  <main id="dashboard-screen" class="hidden">
-    <div class="dashboard-header">
-      <span id="dash-icon" class="icon">🧮</span>
-      <div>
-        <h2 id="dash-title">Matematika</h2>
-        <p style="font-size: 0.85rem; opacity: 0.9;">Pusat Pembelajaran Digital</p>
+  <!-- HALAMAN 1: PILIH MAPEL -->
+  <div id="page-mapel">
+    <div class="section-title">Pilih Mata Pelajaran</div>
+    <div class="grid-mapel">
+      <div class="card-mapel" onclick="selectMapel('Matematika', '🧮')">
+        <span class="icon">🧮</span>
+        <span class="title">Matematika</span>
+      </div>
+      <div class="card-mapel" onclick="selectMapel('Fisika', '🔬')">
+        <span class="icon">🔬</span>
+        <span class="title">Fisika</span>
+      </div>
+      <div class="card-mapel" onclick="selectMapel('Kimia', '🧪')">
+        <span class="icon">🧪</span>
+        <span class="title">Kimia</span>
+      </div>
+      <div class="card-mapel" onclick="selectMapel('Bahasa Inggris', '🇬🇧')">
+        <span class="icon">🇬🇧</span>
+        <span class="title">Bahasa Inggris</span>
+      </div>
+      <div class="card-mapel" onclick="selectMapel('Biologi', '🌱')">
+        <span class="icon">🌱</span>
+        <span class="title">Biologi</span>
+      </div>
+      <div class="card-mapel" onclick="selectMapel('Informatika', '💻')">
+        <span class="icon">💻</span>
+        <span class="title">Informatika</span>
       </div>
     </div>
+  </div>
 
-    <!-- Input Topik Spesifik (Bisa diubah siswa secara real-time) -->
-    <div class="topic-box">
-      <label for="topic-input">Topik yang sedang dipelajari:</label>
-      <input type="text" id="topic-input" value="Persamaan Kuadrat" oninput="updateAILinks()">
+  <!-- HALAMAN 2: PILIH BAB (KELAS X) -->
+  <div id="page-bab" class="hidden">
+    <div class="nav-bar">
+      <button class="btn-back" onclick="showPage('page-mapel')">← Mapel</button>
+      <span id="mapel-title-header" style="font-weight: 700;"></span>
+    </div>
+    <div class="section-title">Daftar Bab (Kelas X)</div>
+    <div class="list-bab" id="container-bab">
+      <!-- Generated via JS -->
+    </div>
+  </div>
+
+  <!-- HALAMAN 3: HUB BELAJAR & AI -->
+  <div id="page-hub" class="hidden">
+    <div class="nav-bar">
+      <button class="btn-back" onclick="showPage('page-bab')">← Pilih Bab</button>
+      <span id="bab-title-header" style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);"></span>
     </div>
 
-    <div class="hub-grid">
-      <!-- Tombol Tanya AI (Menggunakan tag <a> dengan Link Intent) -->
-      <a id="ai-link" href="#" target="_blank" class="hub-item ai-tutor">
-        <div class="hub-left">
-          <span class="hub-icon">🧠</span>
-          <span class="hub-title">Tanya AI (ChatGPT / Gemini)</span>
-        </div>
-        <span class="hub-arrow">&#10095;</span>
+    <!-- FITUR 3: BELAJAR DENGAN AI -->
+    <div class="section-title">🧠 Belajar dengan AI</div>
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+      Pilih mode penjelasan di bawah. Aplikasi akan membuka ChatGPT dengan prompt yang disiapkan.
+    </p>
+
+    <div class="ai-actions">
+      <!-- Tombol Akses AI Langsung -->
+      <a id="btn-ai-penjelasan" class="ai-btn" target="_blank" href="#">
+        <span>📖 Jelaskan Materi Kelas X</span>
+        <span>➔</span>
       </a>
-
-      <div class="hub-item" onclick="alert('Fitur Ringkasan 1 Halaman')">
-        <div class="hub-left">
-          <span class="hub-icon">📝</span>
-          <span class="hub-title">Ringkasan 1 Halaman</span>
-        </div>
-        <span class="hub-arrow">&#10095;</span>
-      </div>
-
-      <div class="hub-item" onclick="alert('Fitur Latihan Quiz')">
-        <div class="hub-left">
-          <span class="hub-icon">❓</span>
-          <span class="hub-title">Latihan Quiz</span>
-        </div>
-        <span class="hub-arrow">&#10095;</span>
-      </div>
+      <a id="btn-ai-sederhana" class="ai-btn" target="_blank" href="#">
+        <span>💡 Jelaskan Lebih Sederhana</span>
+        <span>➔</span>
+      </a>
+      <a id="btn-ai-contoh" class="ai-btn" target="_blank" href="#">
+        <span>📌 Beri Contoh Kasus</span>
+        <span>➔</span>
+      </a>
+      <a id="btn-ai-analogi" class="ai-btn" target="_blank" href="#">
+        <span>🧩 Buat Analogi Mudah</span>
+        <span>➔</span>
+      </a>
     </div>
-  </main>
 
-  <!-- JavaScript Logic -->
+    <!-- FITUR 4: LATIHAN SOAL AI -->
+    <div class="section-title" style="margin-top: 24px;">📝 Latihan Soal</div>
+    <div class="ai-actions">
+      <a id="btn-ai-latihan" class="ai-btn" style="border-color: var(--primary); background: #e0e7ff;" target="_blank" href="#">
+        <span>🔥 AI Buat 5 Soal & Pembahasan</span>
+        <span>➔</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
   <script>
-    let currentSubjectName = '';
+    // DATA BAB KELAS X PER MAPEL
+    const dataBab = {
+      'Matematika': ['Eksponen & Logaritma', 'Persamaan & Pertidaksamaan Linear', 'Vektor', 'Trigonometri Dasar'],
+      'Fisika': ['Pengukuran dalam Kerja Ilmiah', 'Vektor & Penjumlahan Vektor', 'Kinematika Gerak Lurus', 'Pemanasan Global'],
+      'Kimia': ['Struktur Atom & Sistem Periodik', 'Ikatan Kimia', 'Hukum Dasar Kimia', 'Kimia Hijau'],
+      'Bahasa Inggris': ['Great Athletes (Descriptive)', 'Sports Events (Recount)', 'Expository Text', 'Financial Literacy'],
+      'Biologi': ['Keanekaragaman Hayati', 'Virus & Peranannya', 'Inovasi Teknologi Biologi', 'Ekosistem'],
+      'Informatika': ['Berpikir Komputasional', 'Teknologi Informasi & Komunikasi', 'Sistem Komputer', 'Jaringan Komputer']
+    };
 
-    function openSubject(name, icon, defaultTopic) {
-      currentSubjectName = name;
+    let selectedMapel = '';
+    let selectedBab = '';
+
+    function showPage(pageId) {
+      document.getElementById('page-mapel').classList.add('hidden');
+      document.getElementById('page-bab').classList.add('hidden');
+      document.getElementById('page-hub').classList.add('hidden');
       
-      document.getElementById('home-screen').classList.add('hidden');
-      document.getElementById('dashboard-screen').classList.remove('hidden');
-      document.getElementById('back-btn').classList.remove('hidden');
-
-      document.getElementById('page-title').innerText = name;
-      document.getElementById('dash-title').innerText = name;
-      document.getElementById('dash-icon').innerText = icon;
-      document.getElementById('topic-input').value = defaultTopic;
-
-      updateAILinks();
+      document.getElementById(pageId).classList.remove('hidden');
       window.scrollTo(0, 0);
     }
 
-    function goHome() {
-      document.getElementById('dashboard-screen').classList.add('hidden');
-      document.getElementById('home-screen').classList.remove('hidden');
-      document.getElementById('back-btn').classList.add('hidden');
-      document.getElementById('page-title').innerText = 'Pilih Pelajaran';
-      window.scrollTo(0, 0);
+    function selectMapel(mapel, icon) {
+      selectedMapel = mapel;
+      document.getElementById('mapel-title-header').innerText = `${icon} ${mapel}`;
+      
+      const container = document.getElementById('container-bab');
+      container.innerHTML = '';
+
+      const list = dataBab[mapel] || ['Bab 1: Pendahuluan', 'Bab 2: Lanjutan'];
+
+      list.forEach((babTitle, index) => {
+        const storageKey = `progress_${mapel}_${index}`;
+        const isDone = localStorage.getItem(storageKey) === 'true';
+
+        const babCard = document.createElement('div');
+        babCard.className = 'card-bab';
+        babCard.innerHTML = `
+          <div class="bab-info" onclick="selectBab('${babTitle}')" style="flex:1;">
+            <span style="font-weight: 600; font-size: 0.95rem;">${index + 1}. ${babTitle}</span>
+          </div>
+          <div class="check-box ${isDone ? 'done' : ''}" onclick="toggleCheck(event, '${storageKey}', this)">
+            ${isDone ? '✓' : ''}
+          </div>
+        `;
+        container.appendChild(babCard);
+      });
+
+      showPage('page-bab');
     }
 
-    function updateAILinks() {
-      const topic = document.getElementById('topic-input').value;
-      
-      // Rancang Prompt Sesuai Keinginan Anda
-      const promptText = `Saya siswa SMA di Indonesia. Jelaskan materi ${currentSubjectName} tentang "${topic}" dengan bahasa yang sangat sederhana, berikan contoh nyata, lalu berikan 5 soal latihan beserta pembahasannya.`;
-      
-      // Encode prompt agar aman dibaca URL browser
-      const encodedPrompt = encodeURIComponent(promptText);
+    /* FITUR 5: PROGRESS CENTANG (Tersimpan di HP) */
+    function toggleCheck(event, storageKey, element) {
+      event.stopPropagation(); // Mencegah klik masuk ke bab
+      const currentStatus = element.classList.contains('done');
+      if (currentStatus) {
+        element.classList.remove('done');
+        element.innerText = '';
+        localStorage.setItem(storageKey, 'false');
+      } else {
+        element.classList.add('done');
+        element.innerText = '✓';
+        localStorage.setItem(storageKey, 'true');
+      }
+    }
 
-      // Menggunakan ChatGPT Web URL dengan pre-filled prompt
-      const aiUrl = `https://chatgpt.com/?q=${encodedPrompt}`;
+    function selectBab(babTitle) {
+      selectedBab = babTitle;
+      document.getElementById('bab-title-header').innerText = `${selectedMapel} • ${selectedBab}`;
 
-      // Set link pada tombol Tanya AI
-      document.getElementById('ai-link').href = aiUrl;
+      // Set URL ChatGPT dengan Prompt Sesuai Fitur 3 & 4
+      setAILink('btn-ai-penjelasan', `Saya siswa SMA Kelas X di Indonesia. Jelaskan materi ${selectedMapel} tentang "${selectedBab}" secara terstruktur dan mudah dipahami.`);
+      setAILink('btn-ai-sederhana', `Jelaskan materi ${selectedMapel} Kelas X bab "${selectedBab}" dengan bahasa yang sangat sederhana seolah-olah saya baru pertama kali mendengarnya.`);
+      setAILink('btn-ai-contoh', `Beri saya 3 contoh soal nyata beserta solusinya untuk materi ${selectedMapel} Kelas X tentang "${selectedBab}".`);
+      setAILink('btn-ai-analogi', `Buatlah analogi atau perumpamaan dunia nyata yang mudah diingat untuk memahami konsep ${selectedMapel} tentang "${selectedBab}".`);
+      setAILink('btn-ai-latihan', `Saya sedang belajar ${selectedMapel} Kelas X bab "${selectedBab}". Buatkan 5 soal latihan secara bertahap. Tampilkan soalnya dulu, dan tunggu jawaban saya sebelum memberikan pembahasan satu per satu.`);
+
+      showPage('page-hub');
+    }
+
+    function setAILink(elementId, promptText) {
+      const encoded = encodeURIComponent(promptText);
+      document.getElementById(elementId).href = `https://chatgpt.com/?q=${encoded}`;
     }
   </script>
 </body>
