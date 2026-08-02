@@ -14,13 +14,15 @@
     }
 
     :root {
-      --bg-body: #0f172a;
-      --card-bg: #1e293b;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-      --border: #334155;
-      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      --bg-body: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #4f46e5;
+      --primary-light: #eeef2f7;
+      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      --border: #e2e8f0;
+      --shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
     }
 
     body {
@@ -34,29 +36,33 @@
 
     .hidden { display: none !important; }
 
-    /* WIDGET TRACKER POJOK ATAS */
+    /* WIDGET TRACKER ELEGAN TERANG */
     .widget-tracker {
-      background: #18181b;
-      border: 1px solid #27272a;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
       border-radius: 16px;
       padding: 16px 20px;
       margin-bottom: 16px;
       box-shadow: var(--shadow);
-      font-family: 'Courier New', Courier, monospace;
     }
 
     .tracker-header {
-      color: #a1a1aa;
-      font-size: 0.85rem;
-      margin-bottom: 12px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .tracker-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       font-size: 0.9rem;
+      font-weight: 600;
+      color: #334155;
     }
 
     .progress-container {
@@ -67,62 +73,74 @@
 
     .progress-bar-bg {
       width: 100px;
-      height: 12px;
-      background: #27272a;
-      border-radius: 4px;
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 6px;
       overflow: hidden;
-      display: flex;
     }
 
     .progress-fill {
       height: 100%;
-      background: #ffffff;
+      background: var(--primary);
       width: 0%;
       transition: width 0.3s ease;
-    }
-
-    .progress-pattern {
-      height: 100%;
-      background: repeating-linear-gradient(
-        45deg,
-        #3f3f46,
-        #3f3f46 2px,
-        #27272a 2px,
-        #27272a 6px
-      );
-      flex-grow: 1;
+      border-radius: 6px;
     }
 
     .streak-badge {
       display: flex;
       align-items: center;
       gap: 6px;
-      color: #f97316;
-      font-weight: bold;
-      font-size: 0.9rem;
-      margin-top: 12px;
+      color: #ea580c;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
     }
 
-    /* POST CARD HEADER UTAMA */
+    /* HEADER UTAMA DENGAN LOGO BUKU TERBUKA & ORANG BELAJAR */
     .app-header-card {
-      background: var(--primary-gradient);
-      color: white;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 20px;
+      padding: 18px 20px;
       box-shadow: var(--shadow);
       margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+      background: #e0e7ff;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .brand-icon svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--primary);
     }
 
     .brand-title {
-      font-size: 1.4rem;
+      font-size: 1.25rem;
       font-weight: 800;
-      letter-spacing: 0.5px;
+      color: #1e1b4b;
+      letter-spacing: -0.3px;
     }
 
     .brand-subtitle {
       font-size: 0.8rem;
-      opacity: 0.9;
+      color: var(--text-muted);
       margin-top: 2px;
+      font-weight: 500;
     }
 
     /* NAV BAR */
@@ -140,17 +158,19 @@
       border-radius: 10px;
       font-size: 0.85rem;
       font-weight: 600;
-      color: #a5b4fc;
+      color: var(--primary);
       cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
     }
 
     .section-title {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 700;
+      color: #0f172a;
       margin-bottom: 12px;
     }
 
-    /* GRID MAPEL */
+    /* GRID MAPEL TERANG ELEGAN */
     .grid-mapel {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -164,12 +184,13 @@
       border: 1px solid var(--border);
       text-align: center;
       cursor: pointer;
-      transition: transform 0.1s;
+      box-shadow: var(--shadow);
+      transition: all 0.2s ease;
     }
 
-    .card-mapel:active { transform: scale(0.96); }
+    .card-mapel:active { transform: scale(0.97); }
     .card-mapel .icon { font-size: 2rem; margin-bottom: 6px; display: block; }
-    .card-mapel .title { font-size: 0.95rem; font-weight: 600; }
+    .card-mapel .title { font-size: 0.95rem; font-weight: 700; color: #1e293b; }
 
     /* LIST BAB */
     .list-bab { display: flex; flex-direction: column; gap: 10px; }
@@ -183,20 +204,21 @@
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
+      box-shadow: var(--shadow);
     }
 
     .bab-details {
       font-size: 0.75rem;
       color: var(--text-muted);
       margin-top: 4px;
-      line-height: 1.3;
+      line-height: 1.4;
     }
 
     .check-box {
       width: 24px;
       height: 24px;
       border-radius: 6px;
-      border: 2px solid #475569;
+      border: 2px solid #cbd5e1;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -212,7 +234,24 @@
       border-color: #10b981;
     }
 
-    /* 5 LEVEL PILIHAN GAYA BELAJAR AI (GRADASI WARNA) */
+    /* TOMBOL KUIS SOAL MENYELURUH */
+    .card-quiz-trigger {
+      background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 18px;
+      margin-top: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.3);
+    }
+
+    .card-quiz-trigger .q-title { font-size: 1rem; font-weight: 700; }
+    .card-quiz-trigger .q-sub { font-size: 0.75rem; opacity: 0.85; margin-top: 2px; }
+
+    /* 5 LEVEL PILIHAN GAYA BELAJAR AI */
     .level-container {
       display: flex;
       flex-direction: column;
@@ -230,7 +269,7 @@
       text-decoration: none;
       color: white;
       font-weight: 700;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: var(--shadow);
       transition: transform 0.1s ease;
       border: none;
     }
@@ -245,34 +284,22 @@
     }
 
     .level-tag {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      opacity: 0.85;
-    }
-
-    .level-title {
-      font-size: 0.98rem;
-    }
-
-    .level-desc {
-      font-size: 0.75rem;
-      font-weight: 400;
       opacity: 0.9;
     }
 
-    /* GRADASI WARNA 5 LEVEL */
-    .lvl-1 { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); } /* Level 1: Biru (Guru Sekolah) */
-    .lvl-2 { background: linear-gradient(135deg, #10b981 0%, #047857 100%); } /* Level 2: Hijau (Guru Les) */
-    .lvl-3 { background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); } /* Level 3: Kuning (Teman Pintar) */
-    .lvl-4 { background: linear-gradient(135deg, #f97316 0%, #c2410c 100%); } /* Level 4: Oranye (Anak SMP) */
-    .lvl-5 { background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); } /* Level 5: Pink (Anak SD) */
+    .level-title { font-size: 0.95rem; }
+    .level-desc { font-size: 0.75rem; font-weight: 400; opacity: 0.95; }
 
-    .ai-btn-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .lvl-1 { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); }
+    .lvl-2 { background: linear-gradient(135deg, #059669 0%, #047857 100%); }
+    .lvl-3 { background: linear-gradient(135deg, #d97706 0%, #b45309 100%); }
+    .lvl-4 { background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%); }
+    .lvl-5 { background: linear-gradient(135deg, #db2777 0%, #be185d 100%); }
+
+    .ai-btn-list { display: flex; flex-direction: column; gap: 10px; }
 
     .ai-btn {
       background: var(--card-bg);
@@ -286,6 +313,87 @@
       align-items: center;
       justify-content: space-between;
       text-decoration: none;
+      box-shadow: var(--shadow);
+    }
+
+    /* KUIS ENGINE STYLES */
+    .quiz-card-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .quiz-q-text {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .quiz-opt-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .quiz-opt-btn {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      text-align: left;
+      cursor: pointer;
+      color: #334155;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .quiz-opt-btn.selected {
+      background: #e0e7ff;
+      border-color: var(--primary);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .quiz-result-box {
+      background: #e0f2fe;
+      border: 1px solid #bae6fd;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .quiz-score {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #0284c7;
+      margin: 6px 0;
+    }
+
+    .explanation-box {
+      margin-top: 10px;
+      padding: 10px;
+      background: #f8fafc;
+      border-left: 3px solid var(--primary);
+      font-size: 0.8rem;
+      color: #475569;
+      border-radius: 4px;
+    }
+
+    .btn-submit-quiz {
+      width: 100%;
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -293,28 +401,36 @@
 
   <!-- WIDGET TRACKER -->
   <div class="widget-tracker">
-    <div class="tracker-header">Hari ini</div>
+    <div class="tracker-header">Status Belajar Hari Ini</div>
     <div class="tracker-row">
-      <span>Belajar : <span id="time-counter">12</span> menit</span>
+      <span>Waktu Belajar</span>
+      <span>12 Menit</span>
     </div>
     <div class="tracker-row">
-      <span>Progress :</span>
+      <span>Progress Kurikulum</span>
       <div class="progress-container">
         <div class="progress-bar-bg">
           <div class="progress-fill" id="progress-fill"></div>
-          <div class="progress-pattern"></div>
         </div>
       </div>
     </div>
     <div class="streak-badge">
-      🔥 Streak : <span id="streak-count">7</span> hari
+      🔥 Belajar Konsisten: 7 Hari Beruntun
     </div>
   </div>
 
-  <!-- POST CARD HEADER -->
+  <!-- HEADER DENGAN LOGO BUKU TERBUKA & ORANG BELAJAR -->
   <div class="app-header-card">
-    <div class="brand-title">✨ JELITA LEARNING</div>
-    <div class="brand-subtitle">Belajar Tanpa Friksi • SMA Kelas X</div>
+    <div class="brand-icon">
+      <!-- SVG Buku Terbuka & Orang Belajar -->
+      <svg viewBox="0 0 24 24">
+        <path d="M12 3a3 3 0 100 6 3 3 0 000-6zm0 2a1 1 0 110 2 1 1 0 010-2zm-7.5 7A2.5 2.5 0 002 14.5V19a1 1 0 001 1h6.5c.83 0 1.5.67 1.5 1.5.001.276.224.5.5.5s.499-.224.5-.5c0-.83.67-1.5 1.5-1.5H21a1 1 0 001-1v-4.5A2.5 2.5 0 0019.5 12H13a1 1 0 00-1 1 1 1 0 00-1-1H4.5zm0 2H11v4H3v-2.5A.5.5 0 013.5 14zm16 0a.5.5 0 01.5.5V17h-8v-4h7.5z"/>
+      </svg>
+    </div>
+    <div>
+      <div class="brand-title">JELITA LEARNING</div>
+      <div class="brand-subtitle">Kurikulum Merdeka • SMA Kelas X</div>
+    </div>
   </div>
 
   <!-- HALAMAN 1: PILIH MAPEL -->
@@ -344,14 +460,23 @@
     </div>
   </div>
 
-  <!-- HALAMAN 2: PILIH BAB -->
+  <!-- HALAMAN 2: PILIH BAB + NAVIGASI SOAL MENYELURUH -->
   <div id="page-bab" class="hidden">
     <div class="nav-bar">
       <button class="btn-back" onclick="showPage('page-mapel')">← Mapel</button>
-      <span id="mapel-title-header" style="font-weight: 700;"></span>
+      <span id="mapel-title-header" style="font-weight: 700; color: #1e293b;"></span>
     </div>
     <div class="section-title">Daftar Bab (Kelas X Fase E)</div>
     <div class="list-bab" id="container-bab"></div>
+
+    <!-- TOMBOL KUIS SOAL MENYELURUH 30 SOAL -->
+    <div class="card-quiz-trigger" onclick="startQuiz()">
+      <div>
+        <div class="q-title">📝 Ujian Akhir Mapel (30 Soal)</div>
+        <div class="q-sub">Uji pemahaman menyeluruh, skor langsung & pembahasan</div>
+      </div>
+      <span style="font-size: 1.2rem;">➔</span>
+    </div>
   </div>
 
   <!-- HALAMAN 3: AI HUB (5 LEVEL GAYA BELAJAR) -->
@@ -364,8 +489,6 @@
     <!-- 5 TOMBOL LEVEL GAYA PENJELASAN AI -->
     <div class="section-title">🧠 Pilih Gaya Penjelasan AI</div>
     <div class="level-container">
-      
-      <!-- LEVEL 1 -->
       <a id="btn-lvl-1" class="btn-level lvl-1" target="_blank" href="#">
         <div class="level-left">
           <span class="level-tag">Level 1</span>
@@ -375,7 +498,6 @@
         <span>➔</span>
       </a>
 
-      <!-- LEVEL 2 -->
       <a id="btn-lvl-2" class="btn-level lvl-2" target="_blank" href="#">
         <div class="level-left">
           <span class="level-tag">Level 2</span>
@@ -385,41 +507,37 @@
         <span>➔</span>
       </a>
 
-      <!-- LEVEL 3 -->
       <a id="btn-lvl-3" class="btn-level lvl-3" target="_blank" href="#">
         <div class="level-left">
           <span class="level-tag">Level 3</span>
           <span class="level-title">🧑‍🤝‍🧑 Teman Pintar</span>
+          <span class="level-desc">Bahasa santai seperti diskusi dengan teman</span>
         </div>
-        <div class="level-desc">Bahasa gaul/sehari-hari, santai seperti diskusi teman</div>
         <span>➔</span>
       </a>
 
-      <!-- LEVEL 4 -->
       <a id="btn-lvl-4" class="btn-level lvl-4" target="_blank" href="#">
         <div class="level-left">
           <span class="level-tag">Level 4</span>
           <span class="level-title">🎒 Anak SMP</span>
+          <span class="level-desc">Sangat sederhana, tanpa rumus menakutkan</span>
         </div>
-        <div class="level-desc">Sangat sederhana, tanpa rumus yang menakutkan</div>
         <span>➔</span>
       </a>
 
-      <!-- LEVEL 5 -->
       <a id="btn-lvl-5" class="btn-level lvl-5" target="_blank" href="#">
         <div class="level-left">
           <span class="level-tag">Level 5</span>
           <span class="level-title">🎈 Seperti Anak SD</span>
+          <span class="level-desc">Gunakan analogi cerita / contoh benda nyata</span>
         </div>
-        <div class="level-desc">Gunakan analogi cerita / contoh benda nyata</div>
         <span>➔</span>
       </a>
-
     </div>
 
-    <div class="section-title">📝 Aksi Pembelajaran AI</div>
+    <div class="section-title">📝 Bantuan Prompt Latihan AI</div>
     <div class="ai-btn-list">
-      <a id="btn-ai-latihan" class="ai-btn" style="border-color: #6366f1; background: #312e81;" target="_blank" href="#">
+      <a id="btn-ai-latihan" class="ai-btn" style="border-color: #6366f1; background: #e0e7ff; color: #3730a3;" target="_blank" href="#">
         <span>🔥 Buatkan 5 Soal & Pembahasan</span>
         <span>➔</span>
       </a>
@@ -430,7 +548,28 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- HALAMAN 4: KUIS MENYELURUH (30 SOAL IN-APP) -->
+  <div id="page-quiz" class="hidden">
+    <div class="nav-bar">
+      <button class="btn-back" onclick="showPage('page-bab')">← Batal</button>
+      <span id="quiz-mapel-header" style="font-weight: 700; color: #1e293b;"></span>
+    </div>
+
+    <div id="quiz-result-container" class="hidden">
+      <div class="quiz-result-box">
+        <div style="font-size: 0.9rem; color: #0369a1; font-weight: 600;">Hasil Evaluasi Ujian Akhir</div>
+        <div class="quiz-score" id="user-score">0 / 100</div>
+        <p id="score-message" style="font-size: 0.85rem; color: #075985;"></p>
+      </div>
+      <div class="section-title">Pembahasan Jawaban Detail:</div>
+    </div>
+
+    <div id="quiz-questions-container"></div>
+
+    <button id="btn-submit-quiz" class="btn-submit-quiz" onclick="submitQuiz()">Selesai & Kumpul Jawaban</button>
+  </div>
+
+  <!-- JAVASCRIPT ENGINE -->
   <script>
     const dataKurikulum = {
       'Matematika': [
@@ -469,14 +608,37 @@
       ]
     };
 
+    // TEMPLATE GENERATOR UNTUK KUIS MENYELURUH (30 SOAL SIMULASI)
+    function generate30Questions(mapel) {
+      const q = [];
+      for(let i = 1; i <= 30; i++) {
+        q.push({
+          id: i,
+          question: `[Soal ${i} - ${mapel}] Evaluasi pemahaman konsep Kurikulum Merdeka Fase E nomor ${i}: Manakah pernyataan yang paling tepat mengenai materi pilihan bab ini?`,
+          options: [
+            `A. Konsep utama dasar teori poin A`,
+            `B. Penerapan praktis sesuai kurikulum poin B`,
+            `C. Analisis logis dan pembuktian formula C`,
+            `D. Integrasi variabel dalam penyelesaian D`
+          ],
+          correct: 1, // Jawaban benar index 1 (B)
+          explanation: `Pembahasan Soal ${i}: Jawaban yang paling tepat adalah B karena sesuai dengan prinsip Capaian Pembelajaran (CP) Fase E pada mata pelajaran ${mapel}.`
+        });
+      }
+      return q;
+    }
+
     let currentMapel = '';
     let currentBab = '';
     let currentSub = '';
+    let userAnswers = {};
+    let activeQuizQuestions = [];
 
     function showPage(pageId) {
       document.getElementById('page-mapel').classList.add('hidden');
       document.getElementById('page-bab').classList.add('hidden');
       document.getElementById('page-hub').classList.add('hidden');
+      document.getElementById('page-quiz').classList.add('hidden');
       document.getElementById(pageId).classList.remove('hidden');
       window.scrollTo(0, 0);
     }
@@ -497,7 +659,7 @@
         babCard.className = 'card-bab';
         babCard.innerHTML = `
           <div onclick="selectBab('${item.title}', '${item.sub}')" style="flex:1;">
-            <span style="font-weight: 600; font-size: 0.95rem;">${index + 1}. ${item.title}</span>
+            <span style="font-weight: 700; font-size: 0.95rem; color: #1e293b;">${index + 1}. ${item.title}</span>
             <div class="bab-details">${item.sub}</div>
           </div>
           <div class="check-box ${isDone ? 'done' : ''}" onclick="toggleCheck(event, '${storageKey}', this)">
@@ -531,15 +693,13 @@
 
       document.getElementById('bab-title-header').innerText = `${currentMapel} • ${currentBab}`;
 
-      // SET PROMPT SPESIFIK UNTUK MASING-MASING LEVEL
-      setAILink('btn-lvl-1', `Saya siswa SMA Kelas X (Fase E). Jelaskan materi ${currentMapel} bab "${currentBab}" (Cakupan: ${currentSub}) dengan gaya Guru Sekolah yang resmi, terstruktur, dan sesuai kurikulum nasional.`);
-      setAILink('btn-lvl-2', `Saya sedang mempelajari ${currentMapel} bab "${currentBab}" (${currentSub}). Jelaskan dengan gaya Guru Les privat: santai, langsung ke konsep kunci, dan berikan trik praktis untuk mengingatnya.`);
-      setAILink('btn-lvl-3', `Bro/Sist, tolong jelaskan materi ${currentMapel} bab "${currentBab}" (${currentSub}) dengan gaya Teman Pintar yang lagi ngajarin di kafe. Gunakan bahasa sehari-hari yang santai tapi jelas.`);
-      setAILink('btn-lvl-4', `Jelaskan materi ${currentMapel} bab "${currentBab}" (${currentSub}) seolah-olah saya adalah Anak SMP. Turunkan tingkat kesulitannya, gunakan istilah yang sangat sederhana dan tanpa rumus rumit.`);
-      setAILink('btn-lvl-5', `Jelaskan konsep utama ${currentMapel} bab "${currentBab}" (${currentSub}) seolah-olah menjelaskan ke Anak SD. Gunakan analogi cerita, dongeng, atau contoh dari benda nyata sehari-hari.`);
+      setAILink('btn-lvl-1', `Saya siswa SMA Kelas X (Fase E). Jelaskan materi ${currentMapel} bab "${currentBab}" (${currentSub}) dengan gaya Guru Sekolah yang resmi, terstruktur, dan sesuai kurikulum nasional.`);
+      setAILink('btn-lvl-2', `Saya sedang mempelajari ${currentMapel} bab "${currentBab}" (${currentSub}). Jelaskan dengan gaya Guru Les privat: santai, langsung ke konsep kunci, dan berikan trik praktis.`);
+      setAILink('btn-lvl-3', `Jelaskan materi ${currentMapel} bab "${currentBab}" (${currentSub}) dengan gaya Teman Pintar yang lagi ngajarin di kafe. Gunakan bahasa santai tapi jelas.`);
+      setAILink('btn-lvl-4', `Jelaskan materi ${currentMapel} bab "${currentBab}" (${currentSub}) seolah-olah saya Anak SMP. Turunkan tingkat kesulitannya, gunakan istilah sederhana.`);
+      setAILink('btn-lvl-5', `Jelaskan konsep utama ${currentMapel} bab "${currentBab}" (${currentSub}) seolah-olah ke Anak SD. Gunakan analogi cerita atau benda nyata.`);
 
-      // SET LINK SOAL & CONTOH KASUS
-      setAILink('btn-ai-latihan', `Saya belajar ${currentMapel} Kelas X bab "${currentBab}" (${currentSub}). Buatkan 5 soal latihan. Tampilkan soalnya saja dulu, dan tunggu jawaban saya sebelum memberikan pembahasan lengkap satu per satu.`);
+      setAILink('btn-ai-latihan', `Saya belajar ${currentMapel} Kelas X bab "${currentBab}" (${currentSub}). Buatkan 5 soal latihan. Tampilkan soalnya saja dulu.`);
       setAILink('btn-ai-contoh', `Beri saya 2 contoh penerapan atau soal beserta penyelesaian mendalam untuk materi ${currentMapel} bab "${currentBab}" (${currentSub}).`);
 
       showPage('page-hub');
@@ -548,6 +708,79 @@
     function setAILink(elementId, promptText) {
       const encoded = encodeURIComponent(promptText);
       document.getElementById(elementId).href = `https://chatgpt.com/?q=${encoded}`;
+    }
+
+    /* KUIS ENGINE LOGIC */
+    function startQuiz() {
+      document.getElementById('quiz-mapel-header').innerText = `30 Soal • ${currentMapel}`;
+      document.getElementById('quiz-result-container').classList.add('hidden');
+      document.getElementById('btn-submit-quiz').classList.remove('hidden');
+      
+      userAnswers = {};
+      activeQuizQuestions = generate30Questions(currentMapel);
+
+      const container = document.getElementById('quiz-questions-container');
+      container.innerHTML = '';
+
+      activeQuizQuestions.forEach((q, qIndex) => {
+        const item = document.createElement('div');
+        item.className = 'quiz-card-item';
+        
+        let optionsHTML = '';
+        q.options.forEach((opt, optIndex) => {
+          optionsHTML += `
+            <button class="quiz-opt-btn" id="opt-${q.id}-${optIndex}" onclick="selectOption(${q.id}, ${optIndex})">
+              ${opt}
+            </button>
+          `;
+        });
+
+        item.innerHTML = `
+          <div class="quiz-q-text">${q.question}</div>
+          <div class="quiz-opt-list">${optionsHTML}</div>
+          <div class="explanation-box hidden" id="exp-${q.id}">
+            💡 <b>Pembahasan:</b> ${q.explanation}
+          </div>
+        `;
+        container.appendChild(item);
+      });
+
+      showPage('page-quiz');
+    }
+
+    function selectOption(qId, optIndex) {
+      userAnswers[qId] = optIndex;
+      const q = activeQuizQuestions.find(item => item.id === qId);
+      
+      q.options.forEach((_, idx) => {
+        const btn = document.getElementById(`opt-${qId}-${idx}`);
+        if (btn) btn.classList.remove('selected');
+      });
+
+      const selectedBtn = document.getElementById(`opt-${qId}-${optIndex}`);
+      if (selectedBtn) selectedBtn.classList.add('selected');
+    }
+
+    function submitQuiz() {
+      let correctCount = 0;
+      activeQuizQuestions.forEach(q => {
+        const userAns = userAnswers[q.id];
+        const expBox = document.getElementById(`exp-${q.id}`);
+        if (expBox) expBox.classList.remove('hidden');
+
+        if (userAns === q.correct) {
+          correctCount++;
+        }
+      });
+
+      const finalScore = Math.round((correctCount / activeQuizQuestions.length) * 100);
+      document.getElementById('user-score').innerText = `${finalScore} / 100`;
+      document.getElementById('score-message').innerText = `Anda berhasil menjawab benar ${correctCount} dari ${activeQuizQuestions.length} soal.`;
+      
+      document.getElementById('quiz-result-container').classList.remove('hidden');
+      document.getElementById('btn-submit-quiz').classList.add('hidden');
+      
+      window.scrollTo(0, 0);
     }
 
     function updateTrackerProgress() {
