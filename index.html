@@ -32,7 +32,7 @@
 
     .hidden { display: none !important; }
 
-    /* WIDGET TRACKER - SEJUK SLATE */
+    /* WIDGET TRACKER */
     .widget-tracker {
       background: #e2e8f0;
       border: 1px solid #cbd5e1;
@@ -89,7 +89,7 @@
       border-top: 1px dashed #cbd5e1;
     }
 
-    /* HEADER UTAMA LOGO BUKU TERBUKA & ORANG BELAJAR */
+    /* HEADER UTAMA LOGO BUKU TERBUKA */
     .app-header-card {
       background: #e0e7ff;
       border: 1px solid #c7d2fe;
@@ -159,7 +159,7 @@
       margin-bottom: 14px;
     }
 
-    /* GRID MAPEL - PALETTE WARNA SEJUK */
+    /* GRID MAPEL */
     .grid-mapel {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -186,10 +186,10 @@
     .mapel-ing { background: #fef3c7; border: 1px solid #fde68a; color: #92400e; }
     .mapel-ind { background: #f3e8ff; border: 1px solid #e9d5ff; color: #6b21a8; }
 
-    /* LIST BAB */
-    .list-bab { display: flex; flex-direction: column; gap: 10px; }
+    /* LIST BAB & SUB-BAB */
+    .list-container { display: flex; flex-direction: column; gap: 10px; }
     
-    .card-bab {
+    .card-item {
       background: #f1f5f9;
       border-radius: 16px;
       padding: 16px;
@@ -201,7 +201,13 @@
       box-shadow: var(--shadow);
     }
 
-    .bab-details {
+    .item-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #1e293b;
+    }
+
+    .item-sub {
       font-size: 0.75rem;
       color: #64748b;
       margin-top: 4px;
@@ -361,15 +367,25 @@
       <button class="btn-back" onclick="showPage('page-mapel')">← Mapel</button>
       <span id="mapel-title-header" style="font-weight: 700; color: #1e293b;"></span>
     </div>
-    <div class="section-title">Daftar Bab (Kelas X Fase E)</div>
-    <div class="list-bab" id="container-bab"></div>
+    <div class="section-title">Pilih Bab Utama</div>
+    <div class="list-container" id="container-bab"></div>
   </div>
 
-  <!-- HALAMAN 3: AI HUB (5 LEVEL GAYA BELAJAR) -->
+  <!-- HALAMAN 3: PILIH SUB-BAB -->
+  <div id="page-subbab" class="hidden">
+    <div class="nav-bar">
+      <button class="btn-back" onclick="showPage('page-bab')">← Bab Utama</button>
+      <span id="bab-nav-header" style="font-weight: 700; color: #1e293b; font-size: 0.9rem;"></span>
+    </div>
+    <div class="section-title">Pilih Sub-Bab Spesifik</div>
+    <div class="list-container" id="container-subbab"></div>
+  </div>
+
+  <!-- HALAMAN 4: AI HUB (5 LEVEL GAYA BELAJAR) -->
   <div id="page-hub" class="hidden">
     <div class="nav-bar">
-      <button class="btn-back" onclick="showPage('page-bab')">← Pilih Bab</button>
-      <span id="bab-title-header" style="font-size: 0.8rem; color: var(--text-muted); text-align: right;"></span>
+      <button class="btn-back" onclick="showPage('page-subbab')">← Sub-Bab</button>
+      <span id="subbab-title-header" style="font-size: 0.75rem; color: var(--text-muted); text-align: right; max-width: 60%;"></span>
     </div>
 
     <div class="section-title">🧠 Pilih Gaya Penjelasan AI</div>
@@ -404,7 +420,7 @@
       <a id="btn-lvl-4" class="btn-level lvl-4" target="_blank" href="#">
         <div class="level-left">
           <span class="level-tag">Level 4</span>
-          <span class="level-title">🎒 Mode Santai</span>
+          <span class="level-title">🎒 Anak SMP</span>
           <span class="level-desc">Sangat sederhana, tanpa rumus menakutkan</span>
         </div>
         <span>➔</span>
@@ -413,7 +429,7 @@
       <a id="btn-lvl-5" class="btn-level lvl-5" target="_blank" href="#">
         <div class="level-left">
           <span class="level-tag">Level 5</span>
-          <span class="level-title">🎈 Mode Dari Nol</span>
+          <span class="level-title">🎈 Seperti Anak SD</span>
           <span class="level-desc">Gunakan analogi cerita / contoh benda nyata</span>
         </div>
         <span>➔</span>
@@ -434,85 +450,280 @@
   </div>
 
   <script>
+    // DATA STRUKTUR DIHAPUSKAN MENJADI BAB DAN SUB-BAB LENGKAP
     const dataKurikulum = {
       'Matematika': [
-        { title: 'Eksponen dan Logaritma', sub: 'Sifat eksponen, fungsi eksponensial, pertumbuhan/peluruhan, sifat logaritma' },
-        { title: 'Barisan dan Deret', sub: 'Barisan & deret aritmetika, geometri, dan geometri tak hingga' },
-        { title: 'Vektor dan Operasinya', sub: 'Konsep vektor, notasi, representasi geometris/analitis, dot product' },
-        { title: 'Trigonometri', sub: 'Perbandingan trigonometri segitiga siku-siku, sudut istimewa, pengukuran jarak' },
-        { title: 'Sistem Persamaan & Pertidaksamaan Linear', sub: 'SPLTV (Tiga Variabel) dan SPtLDV (Dua Variabel)' },
-        { title: 'Fungsi Kuadrat', sub: 'Grafik fungsi kuadrat, titik balik, diskriminan, aplikasi masalah nyata' },
-        { title: 'Analisis Data dan Peluang', sub: 'Penyajian data (boxplot/dotplot), mean/median/modus, peluang kejadian bebas' }
+        {
+          babTitle: 'Bab 1: Eksponen dan Logaritma',
+          subBab: [
+            'A. Sifat-Sifat Eksponen',
+            'B. Fungsi Eksponensial',
+            'C. Pertumbuhan dan Peluruhan Eksponensial',
+            'D. Konsep dan Sifat-Sifat Logaritma',
+            'E. Aplikasi Logaritma dalam Kehidupan Sehari-hari'
+          ]
+        },
+        {
+          babTitle: 'Bab 2: Barisan dan Deret',
+          subBab: [
+            'A. Barisan Aritmetika',
+            'B. Deret Aritmetika',
+            'C. Barisan Geometri',
+            'D. Deret Geometri',
+            'E. Deret Geometri Tak Hingga'
+          ]
+        },
+        {
+          babTitle: 'Bab 3: Vektor dan Operasinya',
+          subBab: [
+            'A. Konsep Dasar Vektor dan Notasi',
+            'B. Vektor pada Bidang Kartesius (R2 & R3)',
+            'C. Operasi Penjumlahan dan Pengurangan Vektor',
+            'D. Perkalian Skalar dengan Vektor',
+            'E. Perkalian Titik (Dot Product) Vektor'
+          ]
+        },
+        {
+          babTitle: 'Bab 4: Trigonometri',
+          subBab: [
+            'A. Perbandingan Trigonometri Segitiga Siku-Siku',
+            'B. Perbandingan Trigonometri Sudut Istimewa',
+            'C. Perbandingan Trigonometri di Berbagai Kuadran',
+            'D. Penerapan Trigonometri pada Pengukuran Jarak/Tinggi'
+          ]
+        },
+        {
+          babTitle: 'Bab 5: Sistem Persamaan & Pertidaksamaan Linear',
+          subBab: [
+            'A. Sistem Persamaan Linear Tiga Variabel (SPLTV)',
+            'B. Penyelesaian SPLTV (Eliminasi & Subtitusi)',
+            'C. Sistem Pertidaksamaan Linear Dua Variabel (SPtLDV)',
+            'D. Model Matematika Masalah Kontekstual'
+          ]
+        },
+        {
+          babTitle: 'Bab 6: Fungsi Kuadrat',
+          subBab: [
+            'A. Karakteristik & Grafik Fungsi Kuadrat',
+            'B. Menentukan Titik Puncak dan Sumbu Simetri',
+            'C. Peranan Diskriminan (D)',
+            'D. Menyusun Persamaan Fungsi Kuadrat'
+          ]
+        },
+        {
+          babTitle: 'Bab 7: Analisis Data dan Peluang',
+          subBab: [
+            'A. Visualisasi Data (Boxplot & Dot Plot)',
+            'B. Ukuran Pemusatan Data (Mean, Median, Modus)',
+            'C. Ukuran Penyebaran Data (Jangkauan, IQR, Varians)',
+            'D. Konsep Peluang Kejadian Tunggal & Majemuk'
+          ]
+        }
       ],
       'Fisika': [
-        { 
-          title: 'Sistem Pengukuran dalam Kerja Ilmiah', 
-          sub: 'Hakikat Fisika, Metode Ilmiah, Keselamatan di Laboratorium, Pengukuran, Besaran, Satuan, Dimensi, Angka Penting & Notasi Ilmiah' 
+        {
+          babTitle: 'Bab 1: Sistem Pengukuran dalam Kerja Ilmiah',
+          subBab: [
+            'A. Hakikat Fisika',
+            'B. Metode Ilmiah',
+            'C. Keselamatan di Laboratorium',
+            'D. Pengukuran',
+            'E. Besaran, Satuan, dan Dimensi',
+            'F. Angka Penting dan Notasi Ilmiah'
+          ]
         },
-        { 
-          title: 'Vektor', 
-          sub: 'Konsep Vektor, Penguraian Vektor, Operasi Vektor' 
+        {
+          babTitle: 'Bab 2: Vektor',
+          subBab: [
+            'A. Konsep Vektor',
+            'B. Penguraian Vektor',
+            'C. Operasi Vektor'
+          ]
         },
-        { 
-          title: 'Kinematika Gerak', 
-          sub: 'Besaran-Besaran Gerak, Gerak Satu Dimensi, Gerak Dua Dimensi' 
+        {
+          babTitle: 'Bab 3: Kinematika Gerak',
+          subBab: [
+            'A. Besaran-Besaran Gerak',
+            'B. Gerak Satu Dimensi (GLB & GLBB)',
+            'C. Gerak Dua Dimensi (Gerak Parabola)'
+          ]
         },
-        { 
-          title: 'Energi Alternatif', 
-          sub: 'Perpindahan & Perubahan Bentuk Energi, Ragam Sumber Energi Tidak Terbarukan, Ragam Sumber Energi Alternatif' 
+        {
+          babTitle: 'Bab 4: Energi Alternatif',
+          subBab: [
+            'A. Perpindahan dan Perubahan Bentuk Energi',
+            'B. Ragam Sumber Energi Tidak Terbarukan',
+            'C. Ragam Sumber Energi Alternatif'
+          ]
         },
-        { 
-          title: 'Perubahan Iklim', 
-          sub: 'Gejala Perubahan Iklim, Penyebab Perubahan Iklim, Dampak Perubahan Iklim, Solusi Mengatasi Perubahan Iklim' 
+        {
+          babTitle: 'Bab 5: Perubahan Iklim',
+          subBab: [
+            'A. Gejala Perubahan Iklim',
+            'B. Penyebab Perubahan Iklim',
+            'C. Dampak Perubahan Iklim',
+            'D. Solusi Mengatasi Perubahan Iklim'
+          ]
         }
       ],
       'Kimia': [
-        { 
-          title: 'Kimia dalam Kehidupan', 
-          sub: 'Ilmu Kimia & Peranannya, Materi & Klasifikasinya, Metode Ilmiah, Bekerja di Laboratorium Kimia, Kimia Hijau sebagai Upaya Pengelolaan Lingkungan' 
+        {
+          babTitle: 'Bab 1: Kimia dalam Kehidupan',
+          subBab: [
+            'A. Ilmu Kimia dan Peranannya',
+            'B. Materi dan Klasifikasinya',
+            'C. Metode Ilmiah',
+            'D. Bekerja di Laboratorium Kimia',
+            'E. Kimia Hijau sebagai Upaya Pengelolaan Lingkungan'
+          ]
         },
-        { 
-          title: 'Struktur Atom', 
-          sub: 'Teori Awal tentang Atom, Penemuan Partikel Subatom, Notasi Atom, Sistem Periodik Unsur' 
+        {
+          babTitle: 'Bab 2: Struktur Atom',
+          subBab: [
+            'A. Teori Awal tentang Atom',
+            'B. Penemuan Partikel Subatom',
+            'C. Notasi Atom',
+            'D. Sistem Periodik Unsur'
+          ]
         },
-        { 
-          title: 'Reaksi Kimia dan Stoikiometri', 
-          sub: 'Persamaan & Reaksi Kimia, Hukum Dasar Kimia, Massa Atom, Mol, Kadar Zat, Perhitungan dalam Reaksi Kimia' 
+        {
+          babTitle: 'Bab 3: Reaksi Kimia dan Stoikiometri',
+          subBab: [
+            'A. Persamaan dan Reaksi Kimia',
+            'B. Hukum Dasar Kimia',
+            'C. Massa Atom Relative (Ar) dan Molekul (Mr)',
+            'D. Konsep Mol',
+            'E. Kadar Zat',
+            'F. Perhitungan dalam Reaksi Kimia'
+          ]
         },
-        { 
-          title: 'Perubahan Iklim', 
-          sub: 'Pengertian & Gejala Perubahan Iklim, Penyebab Perubahan Iklim, Dampak Perubahan Iklim, Upaya Mitigasi & Adaptasi Perubahan Iklim' 
+        {
+          babTitle: 'Bab 4: Perubahan Iklim',
+          subBab: [
+            'A. Pengertian dan Gejala Perubahan Iklim',
+            'B. Penyebab Perubahan Iklim',
+            'C. Dampak Perubahan Iklim',
+            'D. Upaya Mitigasi dan Adaptasi Perubahan Iklim'
+          ]
         }
       ],
       'Bahasa Inggris': [
-        { title: 'Descriptive Text (Great Athletes / Healthy Foods)', sub: 'Mendeskripsikan orang/tempat/benda, adjectives, simple present, sensory words' },
-        { title: 'Expository Text (Hortatory/Analytical)', sub: 'Menyampaikan argumen isu lingkungan/kesehatan, abstract nouns, modal verbs' },
-        { title: 'Procedures / How-to Text (Digital Literacy)', sub: 'Langkah-langkah penggunaan teknologi/keuangan digital, imperative sentences' },
-        { title: 'Narrative Text (Traditional Stories)', sub: 'Orientation, Complication, Resolution, simple past tense, direct speech' },
-        { title: 'Recount Text (Historical Event / Experience)', sub: 'Menceritakan kembali peristiwa masa lalu secara kronologis' }
+        {
+          babTitle: 'Bab 1: Descriptive Text (Great Athletes & Health)',
+          subBab: [
+            'A. Social Function & Text Structure of Descriptive Text',
+            'B. Language Features: Adjectives & Descriptive Words',
+            'C. Language Features: Simple Present Tense',
+            'D. Using Sensory Words in Description'
+          ]
+        },
+        {
+          babTitle: 'Bab 2: Expository Text (Environmental Issues)',
+          subBab: [
+            'A. Analytical Expository Text Structure',
+            'B. Hortatory Expository Text Structure',
+            'C. Expressing Arguments & Opinions',
+            'D. Language Features: Modals & Action Verbs'
+          ]
+        },
+        {
+          babTitle: 'Bab 3: Procedure Text (Digital Literacy)',
+          subBab: [
+            'A. Structure of Manual & How-to Text',
+            'B. Language Features: Imperative Sentences',
+            'C. Action Verbs & Adverbs of Sequence',
+            'D. Tips for Safe Navigation in Digital World'
+          ]
+        },
+        {
+          babTitle: 'Bab 4: Narrative Text (Traditional Stories)',
+          subBab: [
+            'A. Orientation, Complication, & Resolution Structure',
+            'B. Characterization & Setting Description',
+            'C. Language Features: Simple Past Tense',
+            'D. Direct vs Indirect Speech'
+          ]
+        },
+        {
+          babTitle: 'Bab 5: Recount Text (Historical Event & Experience)',
+          subBab: [
+            'A. Personal Recount vs Historical Recount',
+            'B. Chronological Structure & Time Connectives',
+            'C. Language Features: Past Action Verbs'
+          ]
+        }
       ],
       'Bahasa Indonesia': [
-        { title: 'Teks Laporan Hasil Observasi (LHO)', sub: 'Fakta pengamatan objektif, deskripsi bagian/manfaat, istilah teknis' },
-        { title: 'Teks Anekdot (Kritik Sosial)', sub: 'Kritik/sindiran cerita lucu, abstrak-orientasi-krisis-reaksi-koda, konjungsi waktu' },
-        { title: 'Teks Hikayat (Sastra Melayu Klasik)', sub: 'Unsur intrinsik, kemustahilan/kesaktian, nilai bijak, konversi ke cerpen' },
-        { title: 'Teks Negosiasi', sub: 'Kesepakatan tawar-menawar, pengajuan-penawaran-persetujuan, kalimat persuasif' },
-        { title: 'Teks Biografi', sub: 'Keteladanan tokoh inspiratif, pronomina, kata kerja tindakan, pola penyajian' },
-        { title: 'Puisi', sub: 'Diksi, imaji, majas, kata konkret, musikalisasi puisi & penulisan kreatif' }
+        {
+          babTitle: 'Bab 1: Teks Laporan Hasil Observasi (LHO)',
+          subBab: [
+            'A. Mengidentifikasi Fakta Objektif LHO',
+            'B. Struktur Teks LHO (Pernyataan Umum, Deskripsi Bagian, Manfaat)',
+            'C. Kebahasaan: Kata Kerja Material & Istilah Teknis',
+            'D. Menyusun Teks LHO Sederhana'
+          ]
+        },
+        {
+          babTitle: 'Bab 2: Teks Anekdot (Kritik Sosial)',
+          subBab: [
+            'A. Menganalisis Pesan & Sindiran Teks Anekdot',
+            'B. Struktur Teks Anekdot (Abstrak, Orientasi, Krisis, Reaksi, Koda)',
+            'C. Kebahasaan: Kalimat Lucu, Majas, Konjungsi Waktu',
+            'D. Menulis Teks Anekdot Kreatif'
+          ]
+        },
+        {
+          babTitle: 'Bab 3: Teks Hikayat (Sastra Melayu Klasik)',
+          subBab: [
+            'A. Karakteristik & Unsur Intrinsik Hikayat',
+            'B. Nilai-Nilai Kehidupan dalam Hikayat',
+            'C. Kebahasaan: Kata Archaic / Klasik',
+            'D. Mengubah/Menskripkan Hikayat ke Bentuk Cerpen'
+          ]
+        },
+        {
+          babTitle: 'Bab 4: Teks Negosiasi',
+          subBab: [
+            'A. Mengevaluasi Tawar-Menawar dalam Negosiasi',
+            'B. Struktur Negosiasi (Pengajuan, Penawaran, Persetujuan)',
+            'C. Kebahasaan: Kalimat Persuasif & Kesantunan Berbahasa',
+            'D. Praktik Bermain Peran Teks Negosiasi'
+          ]
+        },
+        {
+          babTitle: 'Bab 5: Teks Biografi',
+          subBab: [
+            'A. Meneladani Tokoh Inspiratif lewat Biografi',
+            'B. Struktur Teks Biografi (Orientasi, Peristiwa Penting, Reorientasi)',
+            'C. Kebahasaan: Pronomina (Kata Ganti) & Kata Kerja Tindakan'
+          ]
+        },
+        {
+          babTitle: 'Bab 6: Puisi',
+          subBab: [
+            'A. Memahami Diksi, Imaji, dan Kata Konkret Puisi',
+            'B. Unsur Batin Puisi (Tema, Rasa, Nada, Amanat)',
+            'C. Penulisan Kreatif Puisi',
+            'D. Musikalisasi & Deklamasi Puisi'
+          ]
+        }
       ]
     };
 
     let currentMapel = '';
-    let currentBab = '';
-    let currentSub = '';
+    let currentBabObj = null;
+    let currentSubBab = '';
 
     function showPage(pageId) {
       document.getElementById('page-mapel').classList.add('hidden');
       document.getElementById('page-bab').classList.add('hidden');
+      document.getElementById('page-subbab').classList.add('hidden');
       document.getElementById('page-hub').classList.add('hidden');
       document.getElementById(pageId).classList.remove('hidden');
       window.scrollTo(0, 0);
     }
 
+    // 1. Pilih Mapel
     function selectMapel(mapel, icon) {
       currentMapel = mapel;
       document.getElementById('mapel-title-header').innerText = `${icon} ${mapel}`;
@@ -520,21 +731,17 @@
       const container = document.getElementById('container-bab');
       container.innerHTML = '';
 
-      const list = dataKurikulum[mapel] || [];
-      list.forEach((item, index) => {
-        const storageKey = `progress_${mapel}_${index}`;
-        const isDone = localStorage.getItem(storageKey) === 'true';
-
+      const listBab = dataKurikulum[mapel] || [];
+      listBab.forEach((item, index) => {
         const babCard = document.createElement('div');
-        babCard.className = 'card-bab';
+        babCard.className = 'card-item';
+        babCard.onclick = () => selectBab(item);
         babCard.innerHTML = `
-          <div onclick="selectBab('${item.title}', '${item.sub}')" style="flex:1;">
-            <span style="font-weight: 700; font-size: 0.95rem; color: #1e293b;">${index + 1}. ${item.title}</span>
-            <div class="bab-details">${item.sub}</div>
+          <div>
+            <div class="item-title">${item.babTitle}</div>
+            <div class="item-sub">${item.subBab.length} Sub-Bab Pembahasan</div>
           </div>
-          <div class="check-box ${isDone ? 'done' : ''}" onclick="toggleCheck(event, '${storageKey}', this)">
-            ${isDone ? '✓' : ''}
-          </div>
+          <span style="font-size: 1rem; color: #94a3b8;">➔</span>
         `;
         container.appendChild(babCard);
       });
@@ -542,6 +749,35 @@
       showPage('page-bab');
     }
 
+    // 2. Pilih Bab -> Menampilkan Daftar Sub-Bab
+    function selectBab(babObj) {
+      currentBabObj = babObj;
+      document.getElementById('bab-nav-header').innerText = `${currentMapel}`;
+
+      const container = document.getElementById('container-subbab');
+      container.innerHTML = '';
+
+      babObj.subBab.forEach((subTitle, index) => {
+        const storageKey = `progress_${currentMapel}_${babObj.babTitle}_${index}`;
+        const isDone = localStorage.getItem(storageKey) === 'true';
+
+        const subCard = document.createElement('div');
+        subCard.className = 'card-item';
+        subCard.innerHTML = `
+          <div onclick="selectSubBab('${subTitle}')" style="flex:1;">
+            <div class="item-title" style="font-size: 0.9rem;">${subTitle}</div>
+          </div>
+          <div class="check-box ${isDone ? 'done' : ''}" onclick="toggleCheck(event, '${storageKey}', this)">
+            ${isDone ? '✓' : ''}
+          </div>
+        `;
+        container.appendChild(subCard);
+      });
+
+      showPage('page-subbab');
+    }
+
+    // Checkbox Progress Sub-Bab
     function toggleCheck(event, storageKey, element) {
       event.stopPropagation();
       const currentStatus = element.classList.contains('done');
@@ -557,20 +793,21 @@
       updateTrackerProgress();
     }
 
-    function selectBab(babTitle, babSub) {
-      currentBab = babTitle;
-      currentSub = babSub;
+    // 3. Pilih Sub-Bab -> Masuk ke AI Hub 5 Level
+    function selectSubBab(subTitle) {
+      currentSubBab = subTitle;
 
-      document.getElementById('bab-title-header').innerText = `${currentMapel} • ${currentBab}`;
+      document.getElementById('subbab-title-header').innerText = `${currentMapel} • ${subTitle}`;
 
-      setAILink('btn-lvl-1', `Saya siswa SMA Kelas X (Fase E). Jelaskan materi ${currentMapel} bab "${currentBab}" (${currentSub}) dengan gaya Guru Sekolah yang resmi, terstruktur, dan sesuai kurikulum nasional.`);
-      setAILink('btn-lvl-2', `Saya sedang mempelajari ${currentMapel} bab "${currentBab}" (${currentSub}). Jelaskan dengan gaya Guru Les privat: santai, langsung ke konsep kunci, dan berikan trik praktis.`);
-      setAILink('btn-lvl-3', `Jelaskan materi ${currentMapel} bab "${currentBab}" (${currentSub}) dengan gaya Teman Pintar yang lagi ngajarin di kafe. Gunakan bahasa santai tapi jelas.`);
-      setAILink('btn-lvl-4', `Jelaskan materi ${currentMapel} bab "${currentBab}" (${currentSub}) seolah-olah saya Anak SMP. Turunkan tingkat kesulitannya, gunakan istilah sederhana.`);
-      setAILink('btn-lvl-5', `Jelaskan konsep utama ${currentMapel} bab "${currentBab}" (${currentSub}) seolah-olah ke Anak SD. Gunakan analogi cerita atau benda nyata.`);
+      // Prompt Spesifik Per Sub-Bab
+      setAILink('btn-lvl-1', `Saya siswa SMA Kelas X (Fase E). Jelaskan materi ${currentMapel}, ${currentBabObj.babTitle}, khususnya sub-bab "${currentSubBab}" secara akademis, terstruktur, dan sesuai standar kurikulum.`);
+      setAILink('btn-lvl-2', `Saya belajar ${currentMapel} sub-bab "${currentSubBab}" (${currentBabObj.babTitle}). Jelaskan dengan gaya Guru Les privat: santai, fokus trik cepat, dan rumus/poin pentingnya.`);
+      setAILink('btn-lvl-3', `Jelaskan materi ${currentMapel} sub-bab "${currentSubBab}" dengan gaya Teman Pintar yang lagi ngajarin di kafe. Pakai bahasa santai dan mudah dimengerti.`);
+      setAILink('btn-lvl-4', `Jelaskan materi ${currentMapel} sub-bab "${currentSubBab}" seolah-olah saya Anak SMP. Sederhanakan logikanya dan hindari istilah yang rumit.`);
+      setAILink('btn-lvl-5', `Jelaskan konsep inti ${currentMapel} sub-bab "${currentSubBab}" seolah-olah ke Anak SD. Gunakan analogi cerita kehidupan atau benda nyata.`);
 
-      setAILink('btn-ai-latihan', `Saya belajar ${currentMapel} Kelas X bab "${currentBab}" (${currentSub}). Buatkan 5 soal latihan. Tampilkan soalnya saja dulu.`);
-      setAILink('btn-ai-contoh', `Beri saya 2 contoh penerapan atau soal beserta penyelesaian mendalam untuk materi ${currentMapel} bab "${currentBab}" (${currentSub}).`);
+      setAILink('btn-ai-latihan', `Saya sedang mempelajari ${currentMapel} sub-bab "${currentSubBab}". Buatkan 5 soal latihan beserta jawabannya. Tampilkan soalnya terlebih dahulu.`);
+      setAILink('btn-ai-contoh', `Beri saya contoh kasus nyata/soal cerita dan penyelesaian mendalam untuk sub-bab "${currentSubBab}" (${currentMapel}).`);
 
       showPage('page-hub');
     }
