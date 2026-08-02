@@ -14,7 +14,7 @@
     }
 
     :root {
-      --bg-body: #0f172a; /* Latar Gelap Elegan untuk Menonjolkan Widget */
+      --bg-body: #0f172a;
       --card-bg: #1e293b;
       --card-inner: #0f172a;
       --text-main: #f8fafc;
@@ -37,7 +37,7 @@
 
     .hidden { display: none !important; }
 
-    /* WIDGET CIRI KHAS (POJOK ATAS / TOP TRACKER) */
+    /* TRACKER WIDGET POJOK ATAS */
     .widget-tracker {
       background: #18181b;
       border: 1px solid #27272a;
@@ -45,7 +45,7 @@
       padding: 16px 20px;
       margin-bottom: 16px;
       box-shadow: var(--shadow);
-      font-family: 'Courier New', Courier, monospace; /* Nuansa clean terminal/minimalis */
+      font-family: 'Courier New', Courier, monospace;
     }
 
     .tracker-header {
@@ -62,7 +62,6 @@
       font-size: 0.9rem;
     }
 
-    /* Custom ASCII / Block Progress Bar */
     .progress-container {
       display: flex;
       align-items: center;
@@ -81,7 +80,8 @@
     .progress-fill {
       height: 100%;
       background: #ffffff;
-      width: 30%; /* Set dynamic */
+      width: 0%;
+      transition: width 0.3s ease;
     }
 
     .progress-pattern {
@@ -106,7 +106,7 @@
       margin-top: 12px;
     }
 
-    /* APP HEADER CARD */
+    /* POST CARD HEADER UTAMA */
     .app-header-card {
       background: var(--primary-gradient);
       color: white;
@@ -188,6 +188,13 @@
       cursor: pointer;
     }
 
+    .bab-details {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      line-height: 1.3;
+    }
+
     .check-box {
       width: 24px;
       height: 24px;
@@ -199,6 +206,8 @@
       font-size: 12px;
       color: white;
       cursor: pointer;
+      flex-shrink: 0;
+      margin-left: 10px;
     }
     
     .check-box.done {
@@ -206,7 +215,7 @@
       border-color: #10b981;
     }
 
-    /* FITUR UNIK: ADAPTIVE BINGUNG BUTTON */
+    /* ADAPTIVE BINGUNG BUTTON */
     .confused-box {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -269,11 +278,11 @@
 </head>
 <body>
 
-  <!-- FITUR CIRI KHAS: TRACKER WIDGET POJOK ATAS -->
+  <!-- WIDGET TRACKER -->
   <div class="widget-tracker">
     <div class="tracker-header">Hari ini</div>
     <div class="tracker-row">
-      <span>Belajar : <span id="time-counter">12</span> menit</span>
+      <span>Belajar : <span id="time-counter">15</span> menit</span>
     </div>
     <div class="tracker-row">
       <span>Progress :</span>
@@ -292,7 +301,7 @@
   <!-- POST CARD HEADER -->
   <div class="app-header-card">
     <div class="brand-title">✨ JELITA LEARNING</div>
-    <div class="brand-subtitle">Belajar Tanpa Friksi • SMA Kelas X</div>
+    <div class="brand-subtitle">Kurikulum Merdeka • Kelas X (Fase E)</div>
   </div>
 
   <!-- HALAMAN 1: PILIH MAPEL -->
@@ -315,6 +324,10 @@
         <span class="icon">🇬🇧</span>
         <span class="title">Bahasa Inggris</span>
       </div>
+      <div class="card-mapel" onclick="selectMapel('Bahasa Indonesia', '📚')">
+        <span class="icon">📚</span>
+        <span class="title">Bahasa Indonesia</span>
+      </div>
     </div>
   </div>
 
@@ -324,18 +337,18 @@
       <button class="btn-back" onclick="showPage('page-mapel')">← Mapel</button>
       <span id="mapel-title-header" style="font-weight: 700;"></span>
     </div>
-    <div class="section-title">Daftar Bab (Kelas X)</div>
+    <div class="section-title">Daftar Bab (Kelas X Fase E)</div>
     <div class="list-bab" id="container-bab"></div>
   </div>
 
-  <!-- HALAMAN 3: AI HUB + TOMBOL SAYA MASIH BINGUNG -->
+  <!-- HALAMAN 3: AI HUB + SAYA MASIH BINGUNG -->
   <div id="page-hub" class="hidden">
     <div class="nav-bar">
       <button class="btn-back" onclick="showPage('page-bab')">← Pilih Bab</button>
-      <span id="bab-title-header" style="font-size: 0.85rem; color: var(--text-muted);"></span>
+      <span id="bab-title-header" style="font-size: 0.8rem; color: var(--text-muted); text-align: right;"></span>
     </div>
 
-    <!-- FITUR UNIK: TOMBOL SAYA MASIH BINGUNG -->
+    <!-- TOMBOL SAYA MASIH BINGUNG -->
     <div class="confused-box">
       <div class="level-badge" id="level-indicator">LEVEL 1: Standard SMA</div>
       <button class="btn-confused" onclick="handleConfusedClick()">
@@ -353,43 +366,75 @@
         <span>➔</span>
       </a>
       <a id="btn-ai-contoh" class="ai-btn" target="_blank" href="#">
-        <span>📌 Beri Contoh Soal & Solusi</span>
+        <span>📌 Beri Contoh Kasus & Solusi</span>
         <span>➔</span>
       </a>
     </div>
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- JAVASCRIPT LOGIC & DATA KURIKULUM MERDEKA -->
   <script>
-    const dataBab = {
-      'Matematika': ['Eksponen & Logaritma', 'Persamaan Kuadrat', 'Vektor', 'Trigonometri Dasar'],
-      'Fisika': ['Pengukuran Ilmiah', 'Vektor Gerak', 'Kinematika Lurus', 'Pemanasan Global'],
-      'Kimia': ['Struktur Atom', 'Ikatan Kimia', 'Hukum Dasar Kimia', 'Kimia Hijau'],
-      'Bahasa Inggris': ['Great Athletes', 'Sports Events', 'Expository Text', 'Financial Literacy']
+    // DATA PERTAMA & PEMETAAN KURIKULUM MERDEKA FASE E (KELAS X)
+    const dataKurikulum = {
+      'Matematika': [
+        { title: 'Eksponen dan Logaritma', sub: 'Sifat eksponen, fungsi eksponensial, pertumbuhan/peluruhan, sifat logaritma' },
+        { title: 'Barisan dan Deret', sub: 'Barisan & deret aritmetika, geometri, dan geometri tak hingga' },
+        { title: 'Vektor dan Operasinya', sub: 'Konsep vektor, notasi, representasi geometris/analitis, dot product' },
+        { title: 'Trigonometri', sub: 'Perbandingan trigonometri segitiga siku-siku, sudut istimewa, pengukurn jarak' },
+        { title: 'Sistem Persamaan & Pertidaksamaan Linear', sub: 'SPLTV (Tiga Variabel) dan SPtLDV (Dua Variabel)' },
+        { title: 'Fungsi Kuadrat', sub: 'Grafik fungsi kuadrat, titik balik, diskriminan, aplikasi masalah nyata' },
+        { title: 'Analisis Data dan Peluang', sub: 'Penyajian data (boxplot/dotplot), mean/median/modus, peluang kejadian bebas' }
+      ],
+      'Fisika': [
+        { title: 'Pengukuran dalam Kerja Ilmiah', sub: 'Besaran, satuan, jangka sorong, mikrometer sekrup, angka penting, ketidakpastian' },
+        { title: 'Energi Terbarukan', sub: 'Bentuk energi, Hukum Kekekalan Energi, sumber terbarukan vs tak terbarukan, efisiensi' },
+        { title: 'Pemanasan Global (Global Warming)', sub: 'Efek rumah kaca, dampak ekosistem, solusi teknologi & mitigasi emisi karbon' }
+      ],
+      'Kimia': [
+        { title: 'Kimia Hijau (Green Chemistry)', sub: '12 prinsip kimia hijau, pembangunan berkelanjutan, solusi masalah lingkungan' },
+        { title: 'Struktur Atom & Tabel Periodik Unsur', sub: 'Teori atom, proton/neutron/elektron, konfigurasi elektron, sifat periodik' },
+        { title: 'Hukum Dasar Kimia & Stoikiometri', sub: 'Hukum Lavoisier, Proust, Dalton, Gay-Lussac, Avogadro, Konsep Mol, penyetaraan reaksi' }
+      ],
+      'Bahasa Inggris': [
+        { title: 'Descriptive Text (Great Athletes / Healthy Foods)', sub: 'Mendeskripsikan orang/tempat/benda, adjectives, simple present, sensory words' },
+        { title: 'Expository Text (Hortatory/Analytical)', sub: 'Menyampaikan argumen isu lingkungan/kesehatan, abstract nouns, modal verbs' },
+        { title: 'Procedures / How-to Text (Digital Literacy)', sub: 'Langkah-langkah penggunaan teknologi/keuangan digital, imperative sentences' },
+        { title: 'Narrative Text (Traditional Stories)', sub: 'Orientation, Complication, Resolution, simple past tense, direct speech' },
+        { title: 'Recount Text (Historical Event / Experience)', sub: 'Menceritakan kembali peristiwa masa lalu secara kronologis' }
+      ],
+      'Bahasa Indonesia': [
+        { title: 'Teks Laporan Hasil Observasi (LHO)', sub: 'Fakta pengamatan objektif, deskripsi bagian/manfaat, istilah teknis' },
+        { title: 'Teks Anekdot (Kritik Sosial)', sub: 'Kritik/sindiran cerita lucu, abstrak-orientasi-krisis-reaksi-koda, konjungsi waktu' },
+        { title: 'Teks Hikayat (Sastra Melayu Klasik)', sub: 'Unsur intrinsik, kemustahilan/kesaktian, nilai bijak, konversi ke cerpen' },
+        { title: 'Teks Negosiasi', sub: 'Kesepakatan tawar-menawar, pengajuan-penawaran-persetujuan, kalimat persuasif' },
+        { title: 'Teks Biografi', sub: 'Keteladanan tokoh inspiratif, pronomina, kata kerja tindakan, pola penyajian' },
+        { title: 'Puisi', sub: 'Diksi, imaji, majas, kata konkret, musikalisasi puisi & penulisan kreatif' }
+      ]
     };
 
-    // DEFINISI 4 LEVEL PENJELASAN UNIK
+    // LEVEL PENJELASAN
     const confusedLevels = [
       {
-        level: "LEVEL 1: Standar SMA",
-        prompt: (mapel, bab) => `Saya siswa SMA Kelas X. Jelaskan materi ${mapel} bab "${bab}" secara terstruktur sesuai kurikulum.`
+        level: "LEVEL 1: Standar SMA (Kurikulum Merdeka)",
+        prompt: (mapel, bab, sub) => `Saya siswa SMA Kelas X (Fase E). Jelaskan materi ${mapel} bab "${bab}" (fokus cakupan: ${sub}) secara terstruktur sesuai Capaian Pembelajaran Kurikulum Merdeka.`
       },
       {
-        level: "LEVEL 2: Gaya Guru Les (Lebih Santai)",
-        prompt: (mapel, bab) => `Saya masih bingung dengan materi ${mapel} bab "${bab}". Coba jelaskan dengan gaya guru les privat yang ramah, to the point, dan tekankan trik mudah menghafal atau memahaminya.`
+        level: "LEVEL 2: Gaya Guru Les (Praktis & Santai)",
+        prompt: (mapel, bab, sub) => `Saya masih bingung materi ${mapel} bab "${bab}" (${sub}). Coba jelaskan dengan gaya guru les privat yang ramah, langsung ke poin penting, dan berikan trik cepat untuk memahaminya.`
       },
       {
-        level: "LEVEL 3: Level Anak SMP (Langkah demi Langkah)",
-        prompt: (mapel, bab) => `Saya masih sangat bingung materi ${mapel} "${bab}". Tolong turunkan tingkat kesulitannya dan jelaskan seolah-olah saya adalah anak SMP kelas 7. Gunakan istilah yang sangat sederhana tanpa rumus yang menakutkan.`
+        level: "LEVEL 3: Level Anak SMP (Sangat Sederhana)",
+        prompt: (mapel, bab, sub) => `Saya masih belum paham materi ${mapel} "${bab}". Tolong turunkan tingkat kesulitannya dan jelaskan seolah-olah saya murid SMP. Hindari istilah akademis rumit.`
       },
       {
-        level: "LEVEL 4: Analogi Sehari-hari (Cerita Real-Life)",
-        prompt: (mapel, bab) => `Saya tidak paham rumus ${mapel} "${bab}". Tolong jelaskan konsep utamanya HANYA menggunakan analogi benda/kejadian nyata di kehidupan sehari-hari (seperti makanan, game, atau aktivitas harian). Jangan pakai bahasa akademis dulu.`
+        level: "LEVEL 4: Analogi Kehidupan Sehari-hari",
+        prompt: (mapel, bab, sub) => `Saya kesulitan memahami konsep ${mapel} "${bab}". Tolong jelaskan materi ini HANYA dengan menggunakan analogi kehidupan sehari-hari (seperti makanan, olahraga, atau kejadian nyata di rumah).`
       }
     ];
 
     let currentMapel = '';
     let currentBab = '';
+    let currentSub = '';
     let currentLevelIndex = 0;
 
     function showPage(pageId) {
@@ -407,16 +452,17 @@
       const container = document.getElementById('container-bab');
       container.innerHTML = '';
 
-      const list = dataBab[mapel] || [];
-      list.forEach((babTitle, index) => {
+      const list = dataKurikulum[mapel] || [];
+      list.forEach((item, index) => {
         const storageKey = `progress_${mapel}_${index}`;
         const isDone = localStorage.getItem(storageKey) === 'true';
 
         const babCard = document.createElement('div');
         babCard.className = 'card-bab';
         babCard.innerHTML = `
-          <div onclick="selectBab('${babTitle}')" style="flex:1;">
-            <span style="font-weight: 600; font-size: 0.95rem;">${index + 1}. ${babTitle}</span>
+          <div onclick="selectBab('${item.title}', '${item.sub}')" style="flex:1;">
+            <span style="font-weight: 600; font-size: 0.95rem;">${index + 1}. ${item.title}</span>
+            <div class="bab-details">${item.sub}</div>
           </div>
           <div class="check-box ${isDone ? 'done' : ''}" onclick="toggleCheck(event, '${storageKey}', this)">
             ${isDone ? '✓' : ''}
@@ -443,32 +489,28 @@
       updateTrackerProgress();
     }
 
-    function selectBab(babTitle) {
+    function selectBab(babTitle, babSub) {
       currentBab = babTitle;
-      currentLevelIndex = 0; // Reset ke level 1 setiap ganti bab
+      currentSub = babSub;
+      currentLevelIndex = 0;
 
       document.getElementById('bab-title-header').innerText = `${currentMapel} • ${currentBab}`;
       
       updateConfusedUI();
 
-      // Set link aksi dasar
-      setAILink('btn-ai-latihan', `Saya belajar ${currentMapel} bab "${currentBab}". Buatkan 5 soal latihan bergradasi dari mudah ke sulit. Tampilkan soal dulu, lalu tunggu jawaban saya sebelum bahas satu per satu.`);
-      setAILink('btn-ai-contoh', `Beri saya 2 contoh soal penerapan ${currentMapel} bab "${currentBab}" beserta langkah penyelesaian yang rinci.`);
+      setAILink('btn-ai-latihan', `Saya sedang belajar ${currentMapel} Kelas X bab "${currentBab}" (Cakupan: ${currentSub}). Buatkan 5 soal latihan bergradasi. Tampilkan soalnya saja dahulu, lalu tunggu jawaban saya sebelum memberikan pembahasan lengkap satu per satu.`);
+      setAILink('btn-ai-contoh', `Beri saya 2 contoh penerapan atau soal beserta langkah penyelesaian mendalam untuk materi ${currentMapel} bab "${currentBab}" (${currentSub}).`);
 
       showPage('page-hub');
     }
 
-    /* LOGIK TOMBOL "SAYA MASIH BINGUNG" */
     function handleConfusedClick() {
-      // Ambil prompt sesuai level saat ini
       const activeLevel = confusedLevels[currentLevelIndex];
-      const promptText = activeLevel.prompt(currentMapel, currentBab);
+      const promptText = activeLevel.prompt(currentMapel, currentBab, currentSub);
       
-      // Buka ChatGPT dengan prompt level tersebut
       const encoded = encodeURIComponent(promptText);
       window.open(`https://chatgpt.com/?q=${encoded}`, '_blank');
 
-      // Naikkan level kebingungan untuk klik berikutnya (maksimal level 4)
       if (currentLevelIndex < confusedLevels.length - 1) {
         currentLevelIndex++;
         updateConfusedUI();
@@ -486,7 +528,6 @@
     }
 
     function updateTrackerProgress() {
-      // Hitung persentase sederhana berdasarkan bab yang dicentang
       let total = 0;
       let done = 0;
       for (let i = 0; i < localStorage.length; i++) {
@@ -496,11 +537,10 @@
           if (localStorage.getItem(key) === 'true') done++;
         }
       }
-      const pct = total > 0 ? Math.round((done / total) * 100) : 30;
+      const pct = total > 0 ? Math.round((done / total) * 100) : 0;
       document.getElementById('progress-fill').style.width = `${pct}%`;
     }
 
-    // Inisialisasi awal progress tracker
     updateTrackerProgress();
   </script>
 </body>
