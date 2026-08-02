@@ -234,7 +234,7 @@
       color: transparent;
       flex-shrink: 0;
       margin-left: 10px;
-      pointer-events: none; /* Terkunci dari klik langsung */
+      pointer-events: none;
       transition: all 0.2s ease;
     }
     
@@ -545,6 +545,7 @@
       const container = document.getElementById('container-subbab');
       container.innerHTML = '';
 
+      // 1. Render daftar Sub-Bab
       babObj.subBab.forEach((subTitle, index) => {
         const storageKey = `auto_log_${currentMapel}_${babObj.babTitle}_${index}`;
         const savedLog = localStorage.getItem(storageKey);
@@ -564,6 +565,41 @@
         `;
         container.appendChild(subCard);
       });
+
+      // 2. Tombol Ujian Komprehensif Bab (30 Soal + Pembahasan di Akhir)
+      const allSubTopics = babObj.subBab.join(', ');
+      const prompt30Soal = `Saya telah mempelajari seluruh materi ${currentMapel} pada ${babObj.babTitle} yang mencakup sub-bab: (${allSubTopics}).\n\n` +
+        `Tolong buatkan 30 soal latihan pilihan ganda komprehensif yang merangkum SELURUH sub-bab tersebut dengan proporsi yang seimbang.\n\n` +
+        `Instruksi Format:\n` +
+        `1. Tampilkan 30 soal terlebih dahulu (nomor 1 sampai 30) TANPA menyertakan kunci jawaban/pembahasan di bawah soal langsung.\n` +
+        `2. Di bagian paling akhir respon, buatkan bagian khusus "KUNCI JAWABAN DAN PEMBAHASAN LENGKAP" untuk ke-30 soal tersebut.`;
+
+      const encodedPrompt = encodeURIComponent(prompt30Soal);
+
+      const examCard = document.createElement('a');
+      examCard.className = 'card-item';
+      examCard.target = '_blank';
+      examCard.href = `https://chatgpt.com/?q=${encodedPrompt}`;
+      examCard.style.cssText = 'background: #eff6ff; border: 2px dashed #3b82f6; margin-top: 14px; text-decoration: none;';
+      examCard.onclick = () => {
+        const examStorageKey = `auto_log_exam_${currentMapel}_${babObj.babTitle}`;
+        if (!localStorage.getItem(examStorageKey)) {
+          const now = new Date();
+          const timeString = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth()+1).toString().padStart(2, '0')}/${now.getFullYear()}, ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+          localStorage.setItem(examStorageKey, timeString);
+          updateTrackerProgress();
+        }
+      };
+
+      examCard.innerHTML = `
+        <div style="flex:1;">
+          <div class="item-title" style="color: #1d4ed8; font-size: 0.95rem;">🎯 Ujian Komprehensif Bab (30 Soal)</div>
+          <div class="item-sub" style="color: #2563eb;">Rangkuman soal seluruh sub-bab + Pembahasan lengkap di akhir</div>
+        </div>
+        <span style="font-size: 1.1rem; color: #3b82f6; font-weight: bold;">➔</span>
+      `;
+
+      container.appendChild(examCard);
 
       showPage('page-subbab');
     }
@@ -591,7 +627,6 @@
       document.getElementById(elementId).href = `https://chatgpt.com/?q=${encoded}`;
     }
 
-    // FUNGSI PENCATATAN JEJAK DIGITAL OTOMATIS
     function recordActivity() {
       if (currentStorageKey && !localStorage.getItem(currentStorageKey)) {
         const now = new Date();
@@ -603,7 +638,7 @@
 
     function updateTrackerProgress() {
       let count = 0;
-      let totalEstimatedSub = 92; // Total seluruh sub-bab di kurikulum
+      let totalEstimatedSub = 92;
 
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
