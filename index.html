@@ -182,8 +182,7 @@
     .mapel-mtk { background: #dbeafe; border: 1px solid #bfdbfe; color: #1e40af; }
     .mapel-fis { background: #e0f2fe; border: 1px solid #bae6fd; color: #0369a1; }
     .mapel-kim { background: #d1fae5; border: 1px solid #a7f3d0; color: #065f46; }
-    .mapel-ing { background: #fef3c7; border: 1px solid #fde68a; color: #92400e; }
-    .mapel-ind { background: #f3e8ff; border: 1px solid #e9d5ff; color: #6b21a8; }
+    .mapel-bio { background: #fef3c7; border: 1px solid #fde68a; color: #92400e; }
 
     /* LIST ITEM */
     .list-container { display: flex; flex-direction: column; gap: 10px; }
@@ -359,13 +358,9 @@
         <span class="icon">🧪</span>
         <span class="title">Kimia</span>
       </div>
-      <div class="card-mapel mapel-ing" onclick="selectMapel('Bahasa Inggris', '🇬🇧')">
-        <span class="icon">🇬🇧</span>
-        <span class="title">Bahasa Inggris</span>
-      </div>
-      <div class="card-mapel mapel-ind" onclick="selectMapel('Bahasa Indonesia', '📚')">
-        <span class="icon">📚</span>
-        <span class="title">Bahasa Indonesia</span>
+      <div class="card-mapel mapel-bio" onclick="selectMapel('Biologi', '🧬')">
+        <span class="icon">🧬</span>
+        <span class="title">Biologi</span>
       </div>
     </div>
   </div>
@@ -430,7 +425,7 @@
         <div class="level-left">
           <span class="level-tag">Level 4</span>
           <span class="level-title">🎒 Anak SMP</span>
-          <span class="level-desc">Sangat sederhana, tanpa rumus menakutkan</span>
+          <span class="level-desc">Sangat sederhana, tanpa istilah rumit</span>
         </div>
         <span>➔</span>
       </a>
@@ -482,20 +477,14 @@
         { babTitle: 'Bab 3: Reaksi Kimia dan Stoikiometri', subBab: ['A. Persamaan dan Reaksi Kimia', 'B. Hukum Dasar Kimia', 'C. Massa Atom Relative (Ar) dan Molekul (Mr)', 'D. Konsep Mol', 'E. Kadar Zat', 'F. Perhitungan dalam Reaksi Kimia'] },
         { babTitle: 'Bab 4: Perubahan Iklim', subBab: ['A. Pengertian dan Gejala Perubahan Iklim', 'B. Penyebab Perubahan Iklim', 'C. Dampak Perubahan Iklim', 'D. Upaya Mitigasi dan Adaptasi Perubahan Iklim'] }
       ],
-      'Bahasa Inggris': [
-        { babTitle: 'Bab 1: Descriptive Text (Great Athletes & Health)', subBab: ['A. Social Function & Text Structure of Descriptive Text', 'B. Language Features: Adjectives & Descriptive Words', 'C. Language Features: Simple Present Tense', 'D. Using Sensory Words in Description'] },
-        { babTitle: 'Bab 2: Expository Text (Environmental Issues)', subBab: ['A. Analytical Expository Text Structure', 'B. Hortatory Expository Text Structure', 'C. Expressing Arguments & Opinions', 'D. Language Features: Modals & Action Verbs'] },
-        { babTitle: 'Bab 3: Procedure Text (Digital Literacy)', subBab: ['A. Structure of Manual & How-to Text', 'B. Language Features: Imperative Sentences', 'C. Action Verbs & Adverbs of Sequence', 'D. Tips for Safe Navigation in Digital World'] },
-        { babTitle: 'Bab 4: Narrative Text (Traditional Stories)', subBab: ['A. Orientation, Complication, & Resolution Structure', 'B. Characterization & Setting Description', 'C. Language Features: Simple Past Tense', 'D. Direct vs Indirect Speech'] },
-        { babTitle: 'Bab 5: Recount Text (Historical Event & Experience)', subBab: ['A. Personal Recount vs Historical Recount', 'B. Chronological Structure & Time Connectives', 'C. Language Features: Past Action Verbs'] }
-      ],
-      'Bahasa Indonesia': [
-        { babTitle: 'Bab 1: Teks Laporan Hasil Observasi (LHO)', subBab: ['A. Mengidentifikasi Fakta Objektif LHO', 'B. Struktur Teks LHO (Pernyataan Umum, Deskripsi Bagian, Manfaat)', 'C. Kebahasaan: Kata Kerja Material & Istilah Teknis', 'D. Menyusun Teks LHO Sederhana'] },
-        { babTitle: 'Bab 2: Teks Anekdot (Kritik Sosial)', subBab: ['A. Menganalisis Pesan & Sindiran Teks Anekdot', 'B. Struktur Teks Anekdot (Abstrak, Orientasi, Krisis, Reaksi, Koda)', 'C. Kebahasaan: Kalimat Lucu, Majas, Konjungsi Waktu', 'D. Menulis Teks Anekdot Kreatif'] },
-        { babTitle: 'Bab 3: Teks Hikayat (Sastra Melayu Klasik)', subBab: ['A. Karakteristik & Unsur Intrinsik Hikayat', 'B. Nilai-Nilai Kehidupan dalam Hikayat', 'C. Kebahasaan: Kata Archaic / Klasik', 'D. Mengubah/Menskripkan Hikayat ke Bentuk Cerpen'] },
-        { babTitle: 'Bab 4: Teks Negosiasi', subBab: ['A. Mengevaluasi Tawar-Menawar dalam Negosiasi', 'B. Struktur Negosiasi (Pengajuan, Penawaran, Persetujuan)', 'C. Kebahasaan: Kalimat Persuasif & Kesantunan Berbahasa', 'D. Praktik Bermain Peran Teks Negosiasi'] },
-        { babTitle: 'Bab 5: Teks Biografi', subBab: ['A. Meneladani Tokoh Inspiratif lewat Biografi', 'B. Struktur Teks Biografi (Orientasi, Peristiwa Penting, Reorientasi)', 'C. Kebahasaan: Pronomina (Kata Ganti) & Kata Kerja Tindakan'] },
-        { babTitle: 'Bab 6: Puisi', subBab: ['A. Memahami Diksi, Imaji, dan Kata Konkret Puisi', 'B. Unsur Batin Puisi (Tema, Rasa, Nada, Amanat)', 'C. Penulisan Kreatif Puisi', 'D. Musikalisasi & Deklamasi Puisi'] }
+      'Biologi': [
+        { babTitle: 'Bab 1: Keanekaragaman Hayati', subBab: ['A. Tingkat Keanekaragaman Hayati (Gen, Spesies, Ekosistem)', 'B. Keanekaragaman Hayati Indonesia & Flora-Fauna Asli', 'C. Ancaman dan Upaya Pelestarian Keanekaragaman Hayati (In-situ & Ex-situ)', 'D. Manfaat Keanekaragaman Hayati'] },
+        { babTitle: 'Bab 2: Klasifikasi Makhluk Hidup', subBab: ['A. Dasar-Dasar dan Tujuan Klasifikasi', 'B. Sistem Klasifikasi 5 Kingdom & 3 Domain', 'C. Tata Nama Binomial Nomenklatur', 'D. Kunci Determinasi dan Cladogram Sederhana'] },
+        { babTitle: 'Bab 3: Virus dan Peranannya', subBab: ['A. Ciri-Ciri, Ukuran, dan Struktur Tubuh Virus', 'B. Replikasi Virus (Daur Litik dan Lisogenik)', 'C. Peranan Virus yang Merugikan (Penyakit pada Manusia, Hewan, Tumbuhan)', 'D. Peranan Virus yang Menguntungkan & Pencegahan (Vaksinasi)'] },
+        { babTitle: 'Bab 4: Inovasi Teknologi Biologi (Bioteknologi)', subBab: ['A. Pengertian dan Perbedaan Bioteknologi Konvensional vs Modern', 'B. Penerapan Bioteknologi Pangan (Fermentasi)', 'C. Bioteknologi Pertanian dan Medis (Kultur Jaringan, Rekayasa Genetika)', 'D. Dampak Positif dan Negatif Bioteknologi Bagi Kehidupan'] },
+        { babTitle: 'Bab 5: Komponen Ekosistem dan Interaksinya', subBab: ['A. Komponen Biotik dan Abiotik Ekosistem', 'B. Interaksi Antar Komponen (Simbiosism Predasi, Kompetisi)', 'C. Rantai Makanan, Jaring-Jaring Makanan, dan Piramida Ekologi', 'D. Daur Biogeokimia (Air, Karbon, Nitrogen, Fosfor)'] },
+        { babTitle: 'Bab 6: Perubahan Lingkungan dan Pencemaran', subBab: ['A. Jenis-Jenis Pencemaran Lingkungan (Air, Udara, Tanah)', 'B. Penyebab dan Dampak Perubahan Lingkungan (Global Warming, Efek Rumah Kaca)', 'C. Pengelolaan Sampah dan Daur Ulang (3R)', 'D. Solusi Pelestarian Lingkungan Berkelanjutan'] },
+        { babTitle: 'Bab 7: Pemanfaatan Keanekaragaman Lokal', subBab: ['A. Identifikasi Potensi Sumber Daya Alam Lokal', 'B. Pemanfaatan Tumbuhan Obat dan Pangan Lokal', 'C. Konservasi Berbasis Kearifan Lokal'] }
       ]
     };
 
@@ -638,7 +627,7 @@
 
     function updateTrackerProgress() {
       let count = 0;
-      let totalEstimatedSub = 92;
+      let totalEstimatedSub = 85;
 
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
